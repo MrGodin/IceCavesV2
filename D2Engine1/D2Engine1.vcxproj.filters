@@ -52,6 +52,9 @@
     <Filter Include="Objects\State Machines\Player">
       <UniqueIdentifier>{1576b751-f5e8-4d49-bc9e-124dbe9cc51f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Player">
+      <UniqueIdentifier>{feaa4da6-69cb-488d-864e-c50521e8e16e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -135,14 +138,17 @@
     <ClInclude Include="TileMap.h">
       <Filter>Objects\Map</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectState.h">
-      <Filter>Objects\State Machines\Player</Filter>
-    </ClInclude>
     <ClInclude Include="ImageGrid.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="LevelStrings.h">
       <Filter>Objects\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Objects\State Machines\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Objects\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

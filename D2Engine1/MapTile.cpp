@@ -53,9 +53,9 @@ RectF MapTile::GetRectScreenPos(float ix, float iy)
 		(float)(GetIndexXBiasRight(ix) + 1) * width, (float)(GetIndexYBiasBottom(iy) + 1) * height);
 }
 
-D2D1_RECT_F MapTile::GetAABB()
+RectF MapTile::GetAABB()
 {
-	return D2D1::RectF(0);
+	return RectF(0, 0, 0, 0);
 };
 float2  MapTile::GetVelocity()
 {

@@ -10,16 +10,17 @@ Texture::Texture(ID2D1HwndRenderTarget *m_pRt)
 
 }
 
-Texture::Texture(ID2D1HwndRenderTarget *m_pRt, const std::wstring &Basename)
+Texture::Texture(ID2D1HwndRenderTarget *m_pRt, const std::wstring &Basename, UINT clipsize)
 	:
-	m_pRT(m_pRt)
+	m_pRT(m_pRt),
+	clipSize(clipsize)
 {
-	Load(Basename);
+	Load(Basename,clipSize);
 }
 
-void Texture::Load(const std::wstring &Basename)
+void Texture::Load(const std::wstring &Basename, UINT clipsize)
 {
-	
+	clipSize = clipsize;
 	IWICBitmapDecoder *pDecoder = nullptr;
 	IWICBitmapFrameDecode *pFrame = nullptr;
 	IWICFormatConverter *pConverter = nullptr;
@@ -51,6 +52,9 @@ void Texture::Load(const std::wstring &Basename)
 	if (SUCCEEDED(hr))
 	{
 		hr = m_pRT->CreateBitmapFromWicBitmap(pConverter, nullptr, &bmp);
+		UINT w, h;
+		D2D1_SIZE_F s = bmp->GetSize();
+		grid.Create(s.width, s.height, clipSize);
 		SAFE_RELEASE(pConverter);
 	}
 	if (SUCCEEDED(hr))

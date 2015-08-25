@@ -38,7 +38,7 @@ public:
 	//~
 	//==================
 	// virtuals
-		virtual D2D1_RECT_F GetAABB()override;
+		virtual RectF GetAABB()override;
 		virtual float2  GetVelocity()override;
 		virtual float2  GetPosition()override;
 		virtual float  GetRadius()override;

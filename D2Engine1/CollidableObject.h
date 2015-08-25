@@ -14,7 +14,7 @@ protected:
 
 public:
 	CollidableObject() {}
-	virtual D2D1_RECT_F GetAABB() = 0;
+	virtual RectF GetAABB() = 0;
 	virtual float2  GetVelocity() = 0;
 	virtual float2  GetPosition() = 0;
 	virtual void   SetVelocity(const float2 v) {};
@@ -24,7 +24,7 @@ public:
 	virtual float2  GetCenter() = 0;
 	virtual void   Rebound(const float2 normal) {};
 	virtual bool   OnCollision(CollidableObject* in_obj) { return false; };
-	virtual class ObjectCore* GetCore() { return NULL; };
+	virtual class PlayerCore* GetCore() { return NULL; };
 	virtual ~CollidableObject() {};
 
 	UINT Type() { return type; }

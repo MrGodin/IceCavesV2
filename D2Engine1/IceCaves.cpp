@@ -57,7 +57,7 @@ void IceCaves::initStaticVars()
 }
 void IceCaves::loadImages()
 {
-	textures.AddTexture(L"media\\levelsprite2.png");
+	textures.AddTexture(L"media\\levelsprite2.png",64);
 }
 //=====================================================
 void IceCaves::loadMap(GameLevelData& data, float2 startPt)

@@ -3,12 +3,14 @@
 using namespace std;
 #include "UtilsD2.h"
 
+
 class Images
 {
 private:
 	std::vector<Texture*>textures;
 	ID2D1HwndRenderTarget *m_pRT = nullptr;
 	void Flush(){ std::for_each(textures.begin(), textures.end(), delete_ptr<Texture>); }
+	
 public:
 	Images(ID2D1HwndRenderTarget *pRt)
 		:
@@ -20,10 +22,11 @@ public:
 	{
 		Flush();
 	}
-	void AddTexture(const std::wstring &Basename)
+	void AddTexture(const std::wstring &Basename,UINT clipSize)
 	{
-		textures.push_back(new Texture(m_pRT, Basename));
+		textures.push_back(new Texture(m_pRT, Basename,clipSize));
 	}
+	Texture* GetLast() { return textures[textures.size() -1]; }
 	UINT Count() { return textures.size(); }
 	ID2D1Bitmap* GetTexture(UINT index)
 	{
