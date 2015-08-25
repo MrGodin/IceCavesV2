@@ -58,8 +58,8 @@ HRESULT GrafixD2::Initialize()
 
 
 		// Create the window.
-		windowSize.x = static_cast<UINT>(ceil(640.f * dpiX / 96.f));
-		windowSize.y = static_cast<UINT>(ceil(480.f * dpiY / 96.f));
+		windowSize.x = 800;// static_cast<UINT>(ceil(640.f * dpiX / 96.f));
+		windowSize.y = 600;// static_cast<UINT>(ceil(480.f * dpiY / 96.f));
 		m_hwnd = CreateWindow(
 			L"Burgh2",
 			L"Caves of Burgh",

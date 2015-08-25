@@ -4,8 +4,8 @@
 #include "Images.h"
 #include "Camera.h"
 #include "viewport.h"
-#include "MapTile.h"
 #include "TileMap.h"
+#include "Player.h"
 
 //============================================================
 extern LRESULT CALLBACK WndProc(
@@ -24,6 +24,7 @@ private:
 	Camera camera;
 	Viewport viewport;
 	TileMap* pMap = NULL;
+	Player* pPlayer = NULL;
 public:
 	IceCaves(GrafixD2& gfx);
 	~IceCaves(){}
@@ -35,5 +36,6 @@ public:
 	void loadImages();
 	void initStaticVars();
 	void loadMap(GameLevelData& data,float2 startPt);
+	void createPlayer();
 	
 };

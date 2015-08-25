@@ -10,7 +10,7 @@ class Sprite : public CollidableObject
 public:
 	Sprite();
 	Sprite(float2 pos,float Width, float Height, ID2D1Bitmap *Bitmap,D2D1_RECT_F clipR);
-	~Sprite();
+	virtual ~Sprite();
 
 	//====================================================
 	//Collidable Object
@@ -38,6 +38,7 @@ public:
 		Drawable(Sprite& p);
 		virtual void Translate(const float2& pos)override;
 		virtual void Rasterize(GrafixD2& gfx)override;
+		virtual void Transform(D2D1::Matrix3x2F mat)override;
 	private:
 		 Sprite& parent;
 	};

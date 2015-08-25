@@ -33,7 +33,12 @@ template <class T> struct Vector2
 			T v;
 		};
 	};
-
+	Vector2<T> operator += (Vector2<T>rhs)
+	{
+		this->x += rhs.x;
+		this->y += rhs.y;
+		return *this;
+	}
 	T& operator[](unsigned int index)
 	{
 		return static_cast<T*>(this)[index];

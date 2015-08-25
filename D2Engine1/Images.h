@@ -26,6 +26,11 @@ public:
 	{
 		textures.push_back(new Texture(m_pRT, Basename,clipSize));
 	}
+	Texture* GetTextureObj(UINT index)
+	{
+		assert(index < textures.size());
+		return textures[index];
+	}
 	Texture* GetLast() { return textures[textures.size() -1]; }
 	UINT Count() { return textures.size(); }
 	ID2D1Bitmap* GetTexture(UINT index)

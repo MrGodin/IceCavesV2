@@ -35,7 +35,7 @@ public:
 		right(r.right),
 		bottom(r.bottom)
 	{}
-
+	
 	void SetRectR(RECT r)
 	{
 
@@ -58,7 +58,7 @@ public:
 	{
 		return D1D2::RectF((float)top,(float)left,(float)right,(float)bottom);
 	}
-	void ClipTo(_Rect<int> rect)
+	void ClipTo(_Rect rect)
 	{
 		left = __max(left, rect.left);
 		top = __max(top, rect.top);
@@ -83,7 +83,6 @@ public:
 	int GetWidth() { return (int)(right - left); }
 	int GetHeight() { return (int)(bottom - top); }
 };
-
 typedef _Rect< float > RectF;
 typedef _Rect< int > RectI;
 typedef _Rect< long > RectL;

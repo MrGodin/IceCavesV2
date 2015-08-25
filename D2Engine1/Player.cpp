@@ -6,16 +6,19 @@ Player::Player(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_REC
 :
 Sprite(pos,width,height,bmp,cliprect)
 {
-
+	core.pos = pos;
+	core.vel = float2(12.5f, 0.0f);
 }
 //=======================================================
 void Player::Update(float dt)
 {
-	core.state->Update(dt);
+	//core.state->Update(dt);
+	core.pos += core.vel * dt;
+	
 }
 D2D_RECT_F Player::GetDrawSize() 
 { 
-	return D2D1::RectF(core.pos.x, core.pos.y, width, height); 
+	return D2D1::RectF(core.pos.x, core.pos.y,core.pos.x +width ,core.pos.y + height); 
 }
  
 RectF Player::GetAABB()

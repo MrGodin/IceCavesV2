@@ -90,7 +90,7 @@ void Texture::Load(const std::wstring &Basename, UINT clipsize)
 	// Might have to hold on to pFactory while you have a IWICBitmap active, 
 	// can't remember
 	
-
+	SAFE_RELEASE(pConverter);
 	SAFE_RELEASE(pFactory);
 	SAFE_RELEASE(pDecoder);
 	SAFE_RELEASE(pFrame);

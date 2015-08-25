@@ -11,6 +11,7 @@ Sprite::Sprite()
 Sprite::Sprite( float2 pos,float Width, float Height, ID2D1Bitmap *Bitmap, D2D1_RECT_F clipR)
 	:
 	CollidableObject(),
+	pos(pos),
 	width(Width),
 	height(Height),
 	pBitmap(Bitmap),
@@ -21,7 +22,7 @@ Sprite::Sprite( float2 pos,float Width, float Height, ID2D1Bitmap *Bitmap, D2D1_
 }
 Sprite::~Sprite()
 {
-	SAFE_RELEASE(pBitmap);
+	
 }
 
 
@@ -45,20 +46,22 @@ Sprite::Drawable::Drawable(Sprite& p)
 	:
 	parent(p)
 {
-	matRot = Mat3x2Math::Rotate(parent.angle, parent.center);
-	matScale = Mat3x2Math::Scale(parent.scale, parent.center);
-	matTrans = Mat3x2Math::Translate(parent.pos);
+	 Transform(Mat3x2Math::Translate(parent.pos));
 	D2_MATRIX_IDENTITY(matWorld);
 }
 void Sprite::Drawable::Translate(const float2& pos)
 {
 	matTrans = Mat3x2Math::Translate(pos);
 }
+void Sprite::Drawable::Transform(D2D1::Matrix3x2F mat)
+{
+	matTrans = mat * matTrans;
+}
  void Sprite::Drawable::Rasterize(GrafixD2& gfx)
 {
-	matWorld = matRot * matScale * matTrans;
+	matWorld =  matRot * matScale * matTrans ;
 
-	gfx.GetRT()->SetTransform(matWorld);
+	gfx.GetRT()->SetTransform(matTrans);
 	gfx.DrawSprite(
 	    parent.GetDrawSize(),// D2D1::RectF(parent.core.pos.x, parent.core.pos.y, parent.core.pos.x + parent.width, parent.core.pos.y + parent.height),
 		parent.pBitmap,

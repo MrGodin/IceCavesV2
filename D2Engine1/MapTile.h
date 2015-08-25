@@ -74,6 +74,7 @@ public:
 		Drawable(MapTile& p);
 		virtual void Translate(const float2& pos)override;
 		virtual void Rasterize(class GrafixD2& gfx)override;
+		virtual void Transform(D2D1::Matrix3x2F mat)override;
 	private:
 		const MapTile& parent;
 	};

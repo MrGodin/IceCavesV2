@@ -16,7 +16,8 @@ public:// next = vp
 	virtual void Rasterize(Drawable& obj)
 	{
 		
-		obj.Translate(-pos);
+		
+		obj.Transform(Mat3x2Math::Translate(-pos));
 		next.Rasterize(obj);
 		
 	}

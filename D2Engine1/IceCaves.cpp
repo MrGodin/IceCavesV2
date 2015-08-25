@@ -5,8 +5,8 @@ IceCaves::IceCaves(GrafixD2& gfx)
 	:
 	Game(gfx),
 	textures(gfx.GetRT()),
-	viewport(gfx, { 0,0,(int)gfx.WindowSize().x,(int)gfx.WindowSize().y }),
-	camera(viewport, (float)viewport.GetWidth(), (float)viewport.GetHeight())
+	viewport(gfx, { 0.0f,0.0f,(float)gfx.WindowSize().x,(float)gfx.WindowSize().y }),
+	camera(viewport, (float)gfx.WindowSize().x, (float)gfx.WindowSize().y)
 {
 	running = TRUE;
 	initStaticVars();
@@ -21,6 +21,7 @@ IceCaves::IceCaves(GrafixD2& gfx)
 	
 	OnResetDevice();
 	loadMap(d, sp);
+	createPlayer();
 
 }
 HRESULT IceCaves::OnRender()
@@ -28,13 +29,15 @@ HRESULT IceCaves::OnRender()
 	HRESULT hr = S_OK;
 	
 	pMap->GetDrawable().Rasterize(gfx);
+	camera.Rasterize(pPlayer->GetDrawable());
 	return hr;
 };
 
 BOOL IceCaves::OnUpdate(float dt)
 {
 	//update game running time
-	camera.UpdatePosition(float2(600.0f, 0.0f));
+	pPlayer->Update(dt);
+	camera.UpdatePosition(pPlayer->GetPosition());
 	m_runTime += dt;
 	return TRUE;
 };
@@ -42,6 +45,7 @@ BOOL IceCaves::OnUpdate(float dt)
 void IceCaves::ShutDown()
 {
 	SAFE_DELETE(pMap);
+	SAFE_DELETE(pPlayer);
 }
 void IceCaves::OnLostDevice()
 {
@@ -67,6 +71,12 @@ void IceCaves::loadMap(GameLevelData& data, float2 startPt)
 	pMap = new TileMap(camera, b, data);
 	pMap->CreateImageGrid(512, 512, 64);
 	pMap->Create(startPt);
+}
+void IceCaves::createPlayer()
+{
+	Texture* t = textures.GetTextureObj(0);
+	pPlayer = new Player(float2(gfx.WindowSize().x / 2,gfx.WindowSize().y / 2), 64, 64, t->GetBmp(), t->GetClip(23));
+	t = NULL;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 

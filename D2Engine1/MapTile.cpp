@@ -84,10 +84,12 @@ MapTile::Drawable::Drawable(MapTile& p)
 	:
 	parent(p)
 {
-	matRot = Mat3x2Math::Rotate(parent.angle, parent.center);
-	matScale = Mat3x2Math::Scale(parent.scale, parent.center);
-	matTrans = Mat3x2Math::Translate(parent.pos);
+	
 	D2_MATRIX_IDENTITY(matWorld);
+}
+void MapTile::Drawable::Transform(D2D1::Matrix3x2F mat)
+{
+	matTrans = mat * matTrans;
 }
 void MapTile::Drawable::Translate(const float2& pos)
 {
