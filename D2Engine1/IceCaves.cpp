@@ -29,6 +29,7 @@ HRESULT IceCaves::OnRender()
 	HRESULT hr = S_OK;
 	
 	pMap->GetDrawable().Rasterize(gfx);
+	//pPlayer->GetDrawable().Rasterize(gfx);
 	camera.Rasterize(pPlayer->GetDrawable());
 	return hr;
 };
@@ -37,6 +38,7 @@ BOOL IceCaves::OnUpdate(float dt)
 {
 	//update game running time
 	pPlayer->Update(dt);
+	
 	camera.UpdatePosition(pPlayer->GetPosition());
 	m_runTime += dt;
 	return TRUE;

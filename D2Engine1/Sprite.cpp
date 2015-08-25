@@ -46,7 +46,8 @@ Sprite::Drawable::Drawable(Sprite& p)
 	:
 	parent(p)
 {
-	 Transform(Mat3x2Math::Translate(parent.pos));
+	parent.pos = float2(matTrans._31, matTrans._32);
+	Transform(Mat3x2Math::Translate(parent.pos));
 	D2_MATRIX_IDENTITY(matWorld);
 }
 void Sprite::Drawable::Translate(const float2& pos)
@@ -62,6 +63,7 @@ void Sprite::Drawable::Transform(D2D1::Matrix3x2F mat)
 	matWorld =  matRot * matScale * matTrans ;
 
 	gfx.GetRT()->SetTransform(matTrans);
+	
 	gfx.DrawSprite(
 	    parent.GetDrawSize(),// D2D1::RectF(parent.core.pos.x, parent.core.pos.y, parent.core.pos.x + parent.width, parent.core.pos.y + parent.height),
 		parent.pBitmap,

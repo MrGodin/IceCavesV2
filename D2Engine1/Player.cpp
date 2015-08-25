@@ -14,7 +14,7 @@ void Player::Update(float dt)
 {
 	//core.state->Update(dt);
 	core.pos += core.vel * dt;
-	
+	pos = core.pos;
 }
 D2D_RECT_F Player::GetDrawSize() 
 { 
