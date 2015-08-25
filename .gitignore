@@ -1,0 +1,10 @@
+*.obj
+*.log
+*.idb
+*.pdb
+*.tlog
+*.lastbuildstate
+unsuccessfulbuild
+*.sdf
+*.opensdf
+*.filters
