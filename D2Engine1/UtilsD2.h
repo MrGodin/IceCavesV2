@@ -27,6 +27,8 @@
 #include "gameMath.h"
 #include "MatrixMath.h"
 #include "LevelStrings.h"
+#include "Vec2.h"
+#include "BiDirection.h"
 
 typedef D2D1_POINT_2F Point2F;
 typedef ID2D1SolidColorBrush* D2Brush;

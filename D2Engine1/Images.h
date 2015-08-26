@@ -12,6 +12,7 @@ private:
 	void Flush(){ std::for_each(textures.begin(), textures.end(), delete_ptr<Texture>); }
 	
 public:
+	Images() {}
 	Images(ID2D1HwndRenderTarget *pRt)
 		:
 		m_pRT(pRt)
@@ -24,7 +25,7 @@ public:
 	}
 	void AddTexture(const std::wstring &Basename,UINT clipSize)
 	{
-		textures.push_back(new Texture(m_pRT, Basename,clipSize));
+		textures.push_back(new Texture( Basename));
 	}
 	Texture* GetTextureObj(UINT index)
 	{

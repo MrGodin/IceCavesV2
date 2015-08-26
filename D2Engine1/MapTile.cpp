@@ -99,8 +99,8 @@ void MapTile::Drawable::Rasterize(GrafixD2& gfx)
 {
 	matWorld = matRot * matScale * matTrans;
 	
-	gfx.GetRT()->SetTransform(matTrans);
-	gfx.DrawSprite(
+	
+	gfx.DrawSprite(matTrans,
 		D2D1::RectF(parent.pos.x, parent.pos.y, parent.pos.x + parent.width, parent.pos.y + parent.height),
 		parent.pBitmap,
 		parent.bp,
@@ -109,6 +109,6 @@ void MapTile::Drawable::Rasterize(GrafixD2& gfx)
 		&D2D1::RectF(parent.clipRect.left, parent.clipRect.top, parent.clipRect.right, parent.clipRect.bottom)
 		);
 	//reset transform so we have no carry-over to next sprite
-	gfx.GetRT()->SetTransform(D2D1::Matrix3x2F::Identity());
+	
 }
 /////////////////////////////////////////////////////////////////

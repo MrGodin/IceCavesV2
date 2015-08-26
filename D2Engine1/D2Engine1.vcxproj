@@ -153,6 +153,7 @@
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="colors.h" />
     <ClInclude Include="Cores.h" />
+    <ClInclude Include="D2D.h" />
     <ClInclude Include="Direct3D10.h" />
     <ClInclude Include="DirectWrite.h" />
     <ClInclude Include="Drawable.h" />
@@ -161,12 +162,17 @@
     <ClInclude Include="GrafixD2.h" />
     <ClInclude Include="IceCaves.h" />
     <ClInclude Include="ImageGrid.h" />
-    <ClInclude Include="Images.h" />
+    <ClInclude Include="keyboardController.h" />
     <ClInclude Include="LevelStrings.h" />
     <ClInclude Include="MatrixMath.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MapTile.h" />
-    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="ObjectState.h" />
+    <ClInclude Include="PlayerBounce.h" />
+    <ClInclude Include="PlayerControl.h" />
+    <ClInclude Include="PlayerJump.h" />
+    <ClInclude Include="PlayerMove.h" />
+    <ClInclude Include="PlayerStand.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="rect.h" />
     <ClInclude Include="RenderTarget.h" />
@@ -176,19 +182,26 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="UtilsD2.h" />
+    <ClInclude Include="Vec2.h" />
     <ClInclude Include="Vectors.h" />
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collisions.cpp" />
+    <ClCompile Include="D2D.cpp" />
     <ClCompile Include="Direct3D10.cpp" />
     <ClCompile Include="DirectWrite.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GrafixD2.cpp" />
     <ClCompile Include="IceCaves.cpp" />
+    <ClCompile Include="keyboardcontroller.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapTile.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBounce.cpp" />
+    <ClCompile Include="PlayerJump.cpp" />
+    <ClCompile Include="PlayerMove.cpp" />
+    <ClCompile Include="PlayerStand.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSheetImage.cpp" />
     <ClCompile Include="Texture.cpp" />

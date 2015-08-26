@@ -1,14 +1,10 @@
 #pragma once
 #include "Game.h"
-#include "GrafixD2.h"
-#include "Images.h"
-#include "Camera.h"
-#include "viewport.h"
-#include "TileMap.h"
-#include "Player.h"
+#include "D2D.h"
+
 
 //============================================================
-extern LRESULT CALLBACK WndProc(
+LRESULT CALLBACK WndProc(
 	HWND hWnd,
 	UINT message,
 	WPARAM wParam,
@@ -16,26 +12,19 @@ extern LRESULT CALLBACK WndProc(
 	);
 
 //=============================================================
-class IceCaves : public Game
+class IceCaves
 {
-private:
-	float m_runTime = 0.0f;
-	Images textures;
-	Camera camera;
-	Viewport viewport;
-	TileMap* pMap = NULL;
-	Player* pPlayer = NULL;
 public:
-	IceCaves(GrafixD2& gfx);
-	~IceCaves(){}
-	virtual BOOL OnUpdate(float dt)override;
-	virtual HRESULT OnRender()override;
-	virtual void ShutDown()override;
-	virtual void OnLostDevice()override;
-	virtual void OnResetDevice()override;
-	void loadImages();
-	void initStaticVars();
-	void loadMap(GameLevelData& data,float2 startPt);
-	void createPlayer();
-	
+	IceCaves();
+	~IceCaves();
+
+	HRESULT Initialize(UINT ScreenW, UINT ScreenH);
+	LRESULT MsgProc(HWND WinHandle, UINT Message, WPARAM wParam, LPARAM lParam);
+	void Run();
+
+	HWND m_hwnd;
+	D2D *d2d;
+	Game *game;
+	_DeltaTime dt;
+
 };

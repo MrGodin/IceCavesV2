@@ -3,24 +3,18 @@
 
 
 
-Texture::Texture(ID2D1HwndRenderTarget *m_pRt)
-	:
-	m_pRT(m_pRt)
+Texture::Texture()
 {
 
 }
 
-Texture::Texture(ID2D1HwndRenderTarget *m_pRt, const std::wstring &Basename, UINT clipsize)
-	:
-	m_pRT(m_pRt),
-	clipSize(clipsize)
+Texture::Texture(const std::wstring &Basename)
 {
-	Load(Basename,clipSize);
+	Load(Basename);
 }
 
-void Texture::Load(const std::wstring &Basename, UINT clipsize)
+void Texture::Load(const std::wstring &Basename)
 {
-	clipSize = clipsize;
 	IWICBitmapDecoder *pDecoder = nullptr;
 	IWICBitmapFrameDecode *pFrame = nullptr;
 	IWICFormatConverter *pConverter = nullptr;
@@ -32,9 +26,7 @@ void Texture::Load(const std::wstring &Basename, UINT clipsize)
 	{
 		hr = pFactory->CreateDecoderFromFilename(Basename.c_str(), nullptr, GENERIC_READ,
 			WICDecodeMetadataCacheOnDemand, &pDecoder);
-
 	}
-
 	if (SUCCEEDED(hr))
 	{
 		pDecoder->GetFrame(0, &pFrame);
@@ -51,34 +43,9 @@ void Texture::Load(const std::wstring &Basename, UINT clipsize)
 	}
 	if (SUCCEEDED(hr))
 	{
-		hr = m_pRT->CreateBitmapFromWicBitmap(pConverter, nullptr, &bmp);
-		UINT w, h;
-		D2D1_SIZE_F s = bmp->GetSize();
-		grid.Create(s.width, s.height, clipSize);
-		SAFE_RELEASE(pConverter);
-	}
-	if (SUCCEEDED(hr))
-	{
-
-		hr = pFactory->CreateFormatConverter(&pConverter);
-	}
-	if (SUCCEEDED(hr))
-	{
-		hr = pConverter->Initialize(pFrame, GUID_WICPixelFormat32bppPRGBA,
-			WICBitmapDitherTypeNone, nullptr, 0.0f, WICBitmapPaletteTypeCustom);
-	}
-	if (SUCCEEDED(hr))
-	{
 		hr = pFactory->CreateBitmapFromSource(pConverter, WICBitmapCacheOnDemand, &pBitmap);
         if(pBitmap)
-			pBitmap->GetSize(&width, &height);
-
-	
-		pBitmap->GetPixelFormat(&pf);
-		pFactory->CreateBitmap(64, 64, pf, WICBitmapCacheOnDemand, &pCopyBitMap);
-		
-		
-		
+			pBitmap->GetSize(&width, &height);	
 	}
 	if (FAILED(hr))
 	{
@@ -90,8 +57,7 @@ void Texture::Load(const std::wstring &Basename, UINT clipsize)
 	// Might have to hold on to pFactory while you have a IWICBitmap active, 
 	// can't remember
 	
-	SAFE_RELEASE(pConverter);
-	SAFE_RELEASE(pFactory);
+
 	SAFE_RELEASE(pDecoder);
 	SAFE_RELEASE(pFrame);
 }
@@ -120,8 +86,10 @@ IWICBitmap* Texture::GetClip64(D2D1_RECT_U &PosSize)
 //UINT bufSize = (PosSize.right - PosSize.left) *
 //(PosSize.bottom - PosSize.top) * sizeof(int);
 void Texture::GetImageData(D2D1_RECT_U &PosSize, BYTE** ppPixels,UINT& stride)const
-{	
-	assert(PosSize.left >= 0 && PosSize.top >= 0);
+{
+	// unsigned int doesn't go below 0, but if you cast to int,
+	// it should make the correct comparison.
+	assert((int)PosSize.left >= 0 && (int)PosSize.top >= 0);
 	assert(PosSize.right <= width && PosSize.bottom <= height);
 	IWICBitmapLock *pLock = nullptr;
 	WICInProcPointer pPixels = nullptr;
@@ -134,7 +102,7 @@ void Texture::GetImageData(D2D1_RECT_U &PosSize, BYTE** ppPixels,UINT& stride)co
 	wr.Height = PosSize.bottom;
 
 	hr = pBitmap->Lock(&wr, WICBitmapLockRead, &pLock);
-	pLock->GetStride(&stride);
+	hr = pLock->GetStride(&stride);
 	if (SUCCEEDED(hr))
 	{
 		UINT bufSize = (PosSize.right - PosSize.left) *
@@ -147,11 +115,15 @@ void Texture::GetImageData(D2D1_RECT_U &PosSize, BYTE** ppPixels,UINT& stride)co
 	{
 		for (UINT y = PosSize.top,yy = 0; y < PosSize.bottom; ++y,yy++)
 		{
+			// Precalculating the offset here reduces the number of 
+			// calculations the cpu has to do, by (width * (height - 1)) 
 			int rowOffset = y * width;
+			int texRowOffset = yy * ppWidth;
+
 			for (UINT x = PosSize.left,xx = 0; x < PosSize.right; ++x,xx++)
 			{
 				int index = x + rowOffset;
-				int count = yy * ppWidth + xx;
+				int count = texRowOffset + xx;
 				(*ppPixels)[count] = *pPixels;
 				pPixels++;
 			}
@@ -175,7 +147,6 @@ UINT Texture::Height() const
 Texture::~Texture()
 {
 	SAFE_RELEASE(pBitmap);
-	SAFE_RELEASE(pCopyBitMap);
+	SAFE_RELEASE(pFactory);
 	
-	SAFE_RELEASE(bmp);
 }

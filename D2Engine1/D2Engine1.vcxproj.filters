@@ -55,6 +55,9 @@
     <Filter Include="Objects\Player">
       <UniqueIdentifier>{feaa4da6-69cb-488d-864e-c50521e8e16e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Keyboard">
+      <UniqueIdentifier>{12f95190-c197-4f0b-9c28-d6a60c8aa0bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -120,9 +123,6 @@
     <ClInclude Include="Viewport.h">
       <Filter>Objects\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Images.h">
-      <Filter>Objects\Images</Filter>
-    </ClInclude>
     <ClInclude Include="Collisions.h">
       <Filter>Objects\Collision</Filter>
     </ClInclude>
@@ -147,8 +147,32 @@
     <ClInclude Include="Player.h">
       <Filter>Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
+    <ClInclude Include="D2D.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBounce.h">
       <Filter>Objects\State Machines\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControl.h">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJump.h">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMove.h">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStand.h">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectState.h">
+      <Filter>Objects\State Machines</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboardController.h">
+      <Filter>Objects\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +214,24 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="D2D.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBounce.cpp">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJump.cpp">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMove.cpp">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStand.cpp">
+      <Filter>Objects\State Machines\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="keyboardcontroller.cpp">
+      <Filter>Objects\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

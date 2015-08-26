@@ -166,7 +166,7 @@ void TileMap::Drawable::Rasterize(GrafixD2& gfx)
 	{
 		parent.camera.Rasterize(tiles[c]->GetDrawable());
 	}
-	gfx.GetRT()->SetTransform(D2D1::Matrix3x2F::Identity());
+	
 
 }
 /////////////////////////////////////////////////////////////////

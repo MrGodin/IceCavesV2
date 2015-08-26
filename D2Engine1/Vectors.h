@@ -122,8 +122,7 @@ template <class T> struct Vector4
 };
 typedef unsigned int uint;
 
-typedef Vector2<float> float2;
-typedef Vector2<UINT>  uint2;
+
 typedef Vector3<float> float3;
 typedef Vector4<float> float4;
 template <class T>

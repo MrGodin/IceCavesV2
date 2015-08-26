@@ -82,6 +82,26 @@ public:
 
 	int GetWidth() { return (int)(right - left); }
 	int GetHeight() { return (int)(bottom - top); }
+
+	operator D2D1_RECT_F()
+	{
+		D2D1_RECT_F r;
+		r.left = (float)left;
+		r.top = (float)top;
+		r.right = (float)right;
+		r.bottom = (float)bottom;
+
+		return r;
+	}
+	operator D2D1_RECT_U()
+	{
+		D2D1_RECT_U r;
+		r.left = (UINT)left;
+		r.top = (UINT)top;
+		r.right = (UINT)right;
+		r.bottom = (UINT)bottom;
+		return r;
+	}
 };
 typedef _Rect< float > RectF;
 typedef _Rect< int > RectI;

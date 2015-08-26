@@ -1,158 +1,189 @@
-
 #include "IceCaves.h"
 
-IceCaves::IceCaves(GrafixD2& gfx)
-	:
-	Game(gfx),
-	textures(gfx.GetRT()),
-	viewport(gfx, { 0.0f,0.0f,(float)gfx.WindowSize().x,(float)gfx.WindowSize().y }),
-	camera(viewport, (float)gfx.WindowSize().x, (float)gfx.WindowSize().y)
+
+IceCaves::IceCaves()
 {
-	running = TRUE;
-	initStaticVars();
-	GameLevelData d;
-	sprintf_s(d.mapStr, "%s", pLevel2String);
-	d.map_height = iLevel2Height;
-	d.map_width = iLevel2Width;
-	d.map_tileHeight = d.map_tileWidth = 64;
-	float2 sp(0.0f, 0.0f);
-
-	
-	
-	OnResetDevice();
-	loadMap(d, sp);
-	createPlayer();
-
+	srand((UINT)time(0));
 }
-HRESULT IceCaves::OnRender()
+
+IceCaves::~IceCaves()
 {
-	HRESULT hr = S_OK;
+	SAFE_DELETE(d2d);
+	SAFE_DELETE(game);
+	CoUninitialize();
+}
+
+void IceCaves::Run()
+{
+	// changed to isRunning because it made more sense, 
+	// since Game::Run returns true is isRunning
+	BOOL isRunning = TRUE;
+	MSG msg{};
+
+	dt.start();
+
+	while (isRunning)
+	{
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				isRunning = FALSE;
+			}
+			else
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+		else
+		{
+			// while will check if done is true or false, 
+			// so no need to check it here also
+			isRunning = game->Run(dt);
+		}
+	}	
+}
+
+HRESULT IceCaves::Initialize(UINT ScreenW, UINT ScreenH)
+{
+	// Register the window class and call methods for instantiating drawing resources
+
+	// Use HeapSetInformation to specify that the process should
+	// terminate if the heap manager detects an error in any heap used
+	// by the process.
+	// The return value is ignored, because we want to continue running in the
+	// unlikely event that HeapSetInformation fails.
+	HeapSetInformation(NULL, HeapEnableTerminationOnCorruption, NULL, 0);
 	
-	pMap->GetDrawable().Rasterize(gfx);
-	//pPlayer->GetDrawable().Rasterize(gfx);
-	camera.Rasterize(pPlayer->GetDrawable());
+	D2D1_POINT_2U windowSize;
+	HRESULT hr = CoInitialize(NULL);
+
+	if (SUCCEEDED(hr))
+	{
+		// Register the window class.
+		WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
+		wcex.style = CS_HREDRAW | CS_VREDRAW;
+		wcex.lpfnWndProc = WndProc;
+		wcex.cbClsExtra = 0;
+		wcex.cbWndExtra = sizeof(LONG_PTR);
+		wcex.hInstance = HINST_THISCOMPONENT;
+		wcex.hbrBackground = NULL;
+		wcex.lpszMenuName = NULL;
+		wcex.hCursor = LoadCursor(NULL, IDI_APPLICATION);
+		wcex.lpszClassName = L"Burgh2";
+
+		RegisterClassEx(&wcex);
+
+		// Create the window.
+		m_hwnd = CreateWindow(
+			L"Burgh2",
+			L"Caves of Burgh",
+			WS_OVERLAPPEDWINDOW,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			ScreenW,
+			ScreenH,
+			NULL,
+			NULL,
+			HINST_THISCOMPONENT,
+			this
+			);
+
+		hr = m_hwnd ? S_OK : E_FAIL;
+	}
+	
+	// Initialize Direct2D.
+	if (SUCCEEDED(hr))
+	{
+		d2d = new D2D(m_hwnd);
+		hr = d2d ? S_OK : E_FAIL;
+
+	}
+	if (SUCCEEDED(hr))
+	{
+		// Because the CreateWindow function takes its size in pixels,
+		// obtain the system DPI and use it to scale the window size.
+		// The factory returns the current system DPI. This is also the value it will use
+		// to create its own windows.		
+		D2D1_POINT_2F dpi = d2d->GetDpi();
+		windowSize.x = static_cast<UINT>(ceil((FLOAT)ScreenW * dpi.x / 96.f));
+		windowSize.y = static_cast<UINT>(ceil((FLOAT)ScreenH * dpi.y / 96.f));
+		SetWindowPos(m_hwnd, nullptr, 0, 0, windowSize.x, windowSize.y, SWP_SHOWWINDOW);
+		
+		//ShowWindow(m_hwnd, SW_SHOWNORMAL);
+		//UpdateWindow(m_hwnd);
+	}
+
+	// Initialize Game
+	if (SUCCEEDED(hr))
+	{
+		game = new Game(*d2d, windowSize.x, windowSize.y);
+		hr = game ? S_OK : E_FAIL;
+	}
+
 	return hr;
-};
+}
 
-BOOL IceCaves::OnUpdate(float dt)
+LRESULT IceCaves::MsgProc(HWND WinHandle, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	//update game running time
-	pPlayer->Update(dt);
-	
-	camera.UpdatePosition(pPlayer->GetPosition());
-	m_runTime += dt;
-	return TRUE;
-};
-// Release created device objects
-void IceCaves::ShutDown()
-{
-	SAFE_DELETE(pMap);
-	SAFE_DELETE(pPlayer);
+	LRESULT result = 0;
+	controler.MsgProc(WinHandle, Message, wParam, lParam);
+	switch (Message)
+	{
+	case WM_SIZE:
+		d2d->OnResize(LOWORD(lParam), HIWORD(lParam));
+		if (game)
+			game->Resize(LOWORD(lParam), HIWORD(lParam));
+		result = 0;
+		break;
+	case WM_DISPLAYCHANGE:
+		InvalidateRect(WinHandle, NULL, FALSE);
+		result = 0;
+		break;
+	case WM_PAINT:
+		ValidateRect(WinHandle, NULL);
+		result = 0;
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		result = 1;
+		break;
+	default:
+		result = DefWindowProc(WinHandle, Message, wParam, lParam);
+	}
+
+	return result;
 }
-void IceCaves::OnLostDevice()
-{
-	textures.OnLostDevice();
-}
-void IceCaves::OnResetDevice()
-{
-	loadImages();
-}
-void IceCaves::initStaticVars()
-{
-	MapTile::SetWidthHeight(64, 64);
-}
-void IceCaves::loadImages()
-{
-	textures.AddTexture(L"media\\levelsprite2.png",64);
-}
-//=====================================================
-void IceCaves::loadMap(GameLevelData& data, float2 startPt)
-{
-	SAFE_DELETE(pMap);
-	ID2D1Bitmap* b = textures.GetTexture(0);
-	pMap = new TileMap(camera, b, data);
-	pMap->CreateImageGrid(512, 512, 64);
-	pMap->Create(startPt);
-}
-void IceCaves::createPlayer()
-{
-	Texture* t = textures.GetTextureObj(0);
-	pPlayer = new Player(float2(gfx.WindowSize().x / 2,gfx.WindowSize().y / 2), 64, 64, t->GetBmp(), t->GetClip(23));
-	t = NULL;
-}
+
 ///////////////////////////////////////////////////////////////////////////////////////////
-
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-
 	LRESULT result = 0;
+	IceCaves *pApp = nullptr;
 
 	if (message == WM_CREATE)
 	{
 		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
-		GrafixD2 *pDemoApp = (GrafixD2 *)pcs->lpCreateParams;
+		pApp = (IceCaves *)pcs->lpCreateParams;
 
-		::SetWindowLongPtrW(
+		SetWindowLongPtrW(
 			hwnd,
 			GWLP_USERDATA,
-			PtrToUlong(pDemoApp)
+			(LONG_PTR)pApp  // Needed to be LONG_PTR instead of ULONG_PTR
 			);
 
 		result = 1;
 	}
 	else
-	{
-		GrafixD2 *pDemoApp = reinterpret_cast<GrafixD2 *>(static_cast<LONG_PTR>(
-			::GetWindowLongPtrW(
-				hwnd,
-				GWLP_USERDATA
-				)));
+	{	
+		pApp = reinterpret_cast<IceCaves *>(GetWindowLongPtrW(hwnd, GWLP_USERDATA));
 
-		bool wasHandled = false;
-
-		if (pDemoApp)
+		if (pApp)
 		{
-			//return pDemoApp->AppWndProc(hwnd, message, wParam, lParam);
-			switch (message)
-			{
-			case WM_SIZE:
-			{
-				UINT width = LOWORD(lParam);
-				UINT height = HIWORD(lParam);
-				pDemoApp->OnResize(width, height);
-			}
-			result = 0;
-			wasHandled = true;
-			break;
-
-			case WM_DISPLAYCHANGE:
-			{
-				InvalidateRect(hwnd, NULL, FALSE);
-			}
-			result = 0;
-			wasHandled = true;
-			break;
-
-			case WM_PAINT:
-			{
-				//pDemoApp->OnRender();
-				ValidateRect(hwnd, NULL);
-			}
-			result = 0;
-			wasHandled = true;
-			break;
-
-			case WM_DESTROY:
-			{
-				PostQuitMessage(0);
-			}
-			result = 1;
-			wasHandled = true;
-			break;
-			}
+			result = pApp->MsgProc(hwnd, message, wParam, lParam);
 		}
-
-		if (!wasHandled)
+		else
 		{
 			result = DefWindowProc(hwnd, message, wParam, lParam);
 		}

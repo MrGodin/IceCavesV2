@@ -18,7 +18,7 @@ public:// next = grafix
 
 	virtual void Rasterize(Drawable& obj)
 	{
-		//obj.Transform(Mat3x2Math::Translate(float2((float)clip.left,(float)clip.top)));
+		obj.Transform(Mat3x2Math::Translate(float2((float)clip.left,(float)clip.top)));
 		obj.Clip(clip);
 		next.Rasterize(obj);
 	}

@@ -2,7 +2,7 @@
 #include "Collisions.h"
 #include "MapTile.h"
 #include "TileMap.h"
-#include "PlayerState.h"
+#include "ObjectState.h"
 bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, CollidableObject& objB)
 {
 
@@ -18,7 +18,7 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 	if (distSqr <= sqrRadius)
 	{
 		float2 delta = objA.GetCenter() - objB.GetCenter();
-		float d = V2Math::len(delta);
+		float d = delta.Len();
 		// minimum translation distance to push balls apart after intersecting
 
 		float2 mtd = delta * (objA.GetRadius() + objB.GetRadius() - d) / d;
@@ -32,7 +32,7 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 
 		// impact speed
 		float2 v = (objA.GetVelocity() - objB.GetVelocity());
-		float2 mtdNorm = V2Math::norm(mtd);
+		float2 mtdNorm = mtd.Normalize();
 		float vn = v.x*mtdNorm.x + v.y*mtdNorm.y;
 
 		// sphere intersecting but moving away from each other already

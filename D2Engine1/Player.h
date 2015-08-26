@@ -1,7 +1,7 @@
 #pragma once
 #include "UtilsD2.h"
 #include "Sprite.h"
-#include "PlayerState.h"
+#include "ObjectState.h"
 class Player : public Sprite
 {
 public:
@@ -18,6 +18,7 @@ public:
 	virtual float2  GetCenter()override;
 	virtual void   Rebound(const float2 normal)override;
 	virtual  PlayerCore* GetCore()override;
+	~Player();
 protected:
 	PlayerCore core;
 };
