@@ -10,6 +10,7 @@
 #include "UtilsD2.h"
 #include "Player.h"
 #include "PlayerControl.h"
+#include "DirectWrite.h"
 
 extern PlayerControl controler;
 
@@ -38,6 +39,7 @@ public:
 	void loadMap(GameLevelData& data, float2 startPt);
 	void CreatePlayer();
 	void Resize(float w, float h) { camera.Resize(w, h); }
+	void renderText();
 	BOOL OnUpdate(float dt);
 	HRESULT OnRender();
 	BOOL Run(_DeltaTime &DeltaTime);

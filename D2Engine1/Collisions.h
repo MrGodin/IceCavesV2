@@ -7,5 +7,6 @@ private:
 public:
 	bool static HandleSphericalObjectCollision(CollidableObject& objA, CollidableObject& objB);
 	void static HandleMapCollision(CollidableObject& objA);
+	void static DoSupport(CollidableObject& objA);
 
 };

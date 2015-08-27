@@ -88,4 +88,5 @@ void Sprite::Collide::SphericalCollision(CollidableObject& obj)
 void Sprite::Collide::MapCollision()
 {
 	Collision::HandleMapCollision(parent);
+	Collision::DoSupport(parent);
 }

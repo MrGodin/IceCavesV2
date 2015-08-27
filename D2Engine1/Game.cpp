@@ -28,6 +28,7 @@ HRESULT Game::OnRender()
 {
 	pMap->GetDrawable().Rasterize(gfx);
 	camera.Rasterize(pPlayer->GetDrawable());
+	renderText();
 	return S_OK;
 };
 
@@ -91,7 +92,14 @@ void Game::CreatePlayer()
 	float dy = row * 64;
 	pPlayer = new Player(float2(x, y), 64, 64, pMapBitmap, g);
 }
-
+void Game::renderText()
+{
+	DirectWrite dw;
+	D2D1_RECT_F pos = D2D1::RectF(10,10,130,26);
+	D2D1_COLOR_F c = D2D1::ColorF(1.0f, 1.0f, 1.0f, 1.0f);
+	IDWriteTextFormat* fmt = dw.CreateFormat(L"Tahoma", 16.0f);
+	gfx.RenderText(L"Hello", fmt, pos, c);
+}
 //////////////////////////////////////////////////////////////////////////////
 BOOL Game::Run(_DeltaTime &DeltaTime)
 {	

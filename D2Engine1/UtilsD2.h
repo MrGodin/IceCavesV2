@@ -56,7 +56,7 @@ inline void SafeRelease(
 
 //////////////////////////////////////////////////////////
 
-#define M_DEBUG
+
 
 #ifndef D2_MAT3x2_IDENTITY
 #define D2_MATRIX_IDENTITY(m) { (m) = (D2D1::Matrix3x2F::Identity()); }

@@ -3,6 +3,23 @@
 #include "MapTile.h"
 #include "TileMap.h"
 #include "ObjectState.h"
+void  Collision::DoSupport(CollidableObject& objA)
+{
+
+
+	RectF cRect = objA.GetAABB();
+	int iy = MapTile::GetIndexYBiasBottom(cRect.bottom);
+	for (int ix = MapTile::GetIndexXBiasRight(cRect.left), ixEnd = MapTile::GetIndexXBiasLeft(cRect.right);
+	ix <= ixEnd; ix++)
+	{
+		if (TileMap::GetTile(ix, iy)->Solid())
+			return;
+		
+	}
+	objA.GetCore()->state->OnUnsupported();
+
+
+}
 bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, CollidableObject& objB)
 {
 
