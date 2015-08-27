@@ -1,10 +1,11 @@
 
 #include "TileMap.h"
 #include "GrafixD2.h"
+
 std::vector<MapTile*>TileMap::tiles;
 UINT TileMap::uCols;
 UINT TileMap::uRows;
-
+TileMap::_DrawIndex TileMap::drawIndexes;
 TileMap::TileMap(Camera& cam, ID2D1Bitmap* bmp, GameLevelData& level_data)
 	:
 	camera(cam),
@@ -141,11 +142,24 @@ void TileMap::Create(const float2& startPt)
 
 	
 }
-
+//===================================================================
+void TileMap::SetDrawIndex(float2 cam_pos, UINT width, UINT height)
+{
+	
+	float2 cpos = cam_pos;
+	float newX = cpos.x + width;
+	float newY = cpos.y + height;
+	drawIndexes.startX = (UINT)(cpos.x / MapTile::GetWidth());
+	drawIndexes.startY = (UINT)(cpos.y / MapTile::GetHeight());
+	drawIndexes.endX = (UINT)(newX / MapTile::GetWidth()) + 1;
+	drawIndexes.endY = (UINT)(newY / MapTile::GetHeight()) + 1;
+	
+}
 void TileMap::CreateImageGrid(UINT width, UINT height, UINT clipsize)
 {
 	grid.Create((float)width, (float)height, (float)clipsize);
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 //Drawable
 ////////////////////////////////////////////////////////////////////////////////
@@ -161,11 +175,18 @@ void TileMap::Drawable::Translate(const float2& pos)
 }
 void TileMap::Drawable::Rasterize(GrafixD2& gfx)
 {
-
-	for (UINT c = 0; c < tiles.size(); c++)
+	
+	for (UINT y = parent.drawIndexes.startY; y < parent.drawIndexes.endY; y++)
 	{
-		parent.camera.Rasterize(tiles[c]->GetDrawable());
+
+		for (UINT x = parent.drawIndexes.startX; x < parent.drawIndexes.endX; x++)
+		{
+			const UINT index = y * uCols + x;
+			parent.camera.Rasterize(tiles[index]->GetDrawable());
+		}
+
 	}
+	
 	
 
 }

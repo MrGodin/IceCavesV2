@@ -233,5 +233,8 @@
     <ClCompile Include="keyboardcontroller.cpp">
       <Filter>Objects\Keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Objects\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,8 +9,10 @@ Game::Game(D2D &d2d, UINT Width, UINT Height)
 	camera(viewport, (float)Width, (float)Height)
 {
 	OnResetDevice();
-
+	float w = Width;
+	float h = Height;
 	initStaticVars();
+	camera.Resize(w, h);
 	GameLevelData d;
 
 	sprintf_s(d.mapStr, "%s", pLevel2String);

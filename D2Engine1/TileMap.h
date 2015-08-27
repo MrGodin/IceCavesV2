@@ -22,6 +22,17 @@ private:
 	Camera& camera;
 	ID2D1Bitmap* image = nullptr;
 	GameLevelData levelData;
+	
+	struct _DrawIndex
+	{
+		UINT startX;
+		UINT startY;
+		UINT endX;
+		UINT endY;
+	};
+	static _DrawIndex drawIndexes;
+	
+	
 public:
 	class Drawable : public ::Drawable
 	{
@@ -36,4 +47,6 @@ public:
 	Drawable GetDrawable() { return Drawable(*this); }
 	void Create( const float2& startPt);
 	void CreateImageGrid(UINT width, UINT height, UINT clipsize);
+	void  static SetDrawIndex(float2 cam_pos, UINT width, UINT height);
+	
 };

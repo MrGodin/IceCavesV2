@@ -187,6 +187,7 @@
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="Direct3D10.cpp" />
