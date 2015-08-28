@@ -29,9 +29,13 @@ void GrafixD2::DrawLine(Point2F start, Point2F end, D2Brush brush, float lineWid
 		);
 };
 //==============================================================================
-void GrafixD2::DrawRectangle(D2D1_RECT_F rect, D2Brush brush)
+void GrafixD2::DrawRectangle(D2D1_MATRIX_3X2_F &matTrans, D2D1_RECT_F rect, D2Brush brush)
 {
-	d2d.GetRT()->FillRectangle(&rect, brush);
+	d2d.GetRT()->SetTransform(matTrans);
+	ID2D1SolidColorBrush *pBrush = d2d.GetSolidBrush();
+	pBrush->SetColor({ 0.0f,0.0f,1.0f,1.0f });
+	d2d.GetRT()->FillRectangle(&rect, pBrush);
+	d2d.GetRT()->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 void GrafixD2::DrawBitmap(D2Bitmap image, D2Brush brush,RECT rect, float X, float Y)
 {

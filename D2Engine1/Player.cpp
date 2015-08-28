@@ -1,6 +1,7 @@
 
 #include "Player.h"
 #include "PlayerJump.h"
+#include "PlayerMove.h"
 
 Player::Player(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_RECT_F cliprect)
 :
@@ -17,7 +18,7 @@ Sprite(pos,width,height,bmp,cliprect)
 	core.anti_gravity = 0.998f;
 	core.mass = 2.0f;
 	core.decayX = 0.989f;
-	core.state = new PlayerJump(core, false, false);
+	core.state = new PlayerMove(core);
 }
 //=======================================================
 Player::~Player()
@@ -32,13 +33,14 @@ void Player::Update(float dt)
 }
 D2D_RECT_F Player::GetDrawSize() 
 { 
-	float2 p(core.Pos.x - 32, core.Pos.y - 32);
+	float2 p(core.Pos.x - 32 , core.Pos.y - 32 );
 	return D2D1::RectF(p.x , p.y,p.x +width ,p.y + height); 
 }
  
 RectF Player::GetAABB()
 {
-	return RectF(core.Pos.y- 32 , core.Pos.x-32, core.Pos.x-32 + width, core.Pos.y-32 + height);
+	float2 p(core.Pos.x - 16, core.Pos.y - 16);
+	return RectF(p.y, p.x, p.x + width - 32, p.y + height - 32);
 };
 float2  Player::GetVelocity()
 {

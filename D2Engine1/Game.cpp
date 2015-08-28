@@ -14,7 +14,7 @@ Game::Game(D2D &d2d, UINT Width, UINT Height)
 	initStaticVars();
 	camera.Resize(w, h);
 	GameLevelData d;
-
+	
 	sprintf_s(d.mapStr, "%s", pLevel2String);
 	d.map_height = iLevel2Height;
 	d.map_width = iLevel2Width;
@@ -84,8 +84,8 @@ void Game::loadMap(GameLevelData& data, float2 startPt)
 //==========================
 void Game::CreatePlayer()
 {
-	float x = 800 / 2;
-	float y = 600 / 2;
+	float x =  800 / 2;
+	float y =  600 / 2;
 	int index = 23;
 	D2D1_RECT_F g = Math::GetImageRectFromIndex(23, pMapBitmap, 64, 64);
 	int row = index / 8;

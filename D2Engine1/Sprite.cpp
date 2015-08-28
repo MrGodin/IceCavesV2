@@ -61,8 +61,6 @@ void Sprite::Drawable::Transform(D2D1::Matrix3x2F mat)
 {
 	matWorld =  matRot * matScale * matTrans ;
 
-	
-	
 	gfx.DrawSprite(
 		matTrans,
 	    parent.GetDrawSize(),

@@ -22,7 +22,7 @@ public:
 
 	void DrawLine(Point2F start, Point2F end, D2Brush brush, float width);
 	void DrawBitmap(D2Bitmap image, D2Brush brush, RECT rect, float X, float Y);
-	void DrawRectangle(D2D1_RECT_F rect, D2Brush brush);	
+	void DrawRectangle(D2D1_MATRIX_3X2_F &matTrans, D2D1_RECT_F rect, D2Brush brush);
 	void DrawSprite(D2D1_MATRIX_3X2_F &trans, D2D1_RECT_F &PosSize, ID2D1Bitmap *pSprite,
 		D2D1_BITMAP_PROPERTIES bp, float Opacity = 1.0f,
 		D2D1_BITMAP_INTERPOLATION_MODE InterpMode = D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,

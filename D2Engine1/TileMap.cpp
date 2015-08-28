@@ -145,14 +145,18 @@ void TileMap::Create(const float2& startPt)
 //===================================================================
 void TileMap::SetDrawIndex(float2 cam_pos, UINT width, UINT height)
 {
-	
-	float2 cpos = cam_pos;
-	float newX = cpos.x + width;
-	float newY = cpos.y + height;
-	drawIndexes.startX = (UINT)(cpos.x / MapTile::GetWidth());
-	drawIndexes.startY = (UINT)(cpos.y / MapTile::GetHeight());
-	drawIndexes.endX = (UINT)(newX / MapTile::GetWidth()) + 1;
-	drawIndexes.endY = (UINT)(newY / MapTile::GetHeight()) + 1;
+	// apparently there is a unsigned int sign issue, so insure positive value
+	uint2 cpos = { (UINT)abs(cam_pos.x),(UINT)abs(cam_pos.y) };
+	UINT newX = cpos.x + width;
+	UINT newY = cpos.y + height;
+	UINT w = MapTile::GetWidth();
+	UINT h = MapTile::GetHeight();
+	drawIndexes.startX = (cpos.x / w);
+	drawIndexes.startY = (cpos.y / h);
+	drawIndexes.endX   = (newX / w)  + 1;
+	drawIndexes.endY   = (newY / h) + 1;
+	if (drawIndexes.endY > uRows)drawIndexes.endY = uRows;
+	if (drawIndexes.endX > uCols)drawIndexes.endX = uCols;
 	
 }
 void TileMap::CreateImageGrid(UINT width, UINT height, UINT clipsize)

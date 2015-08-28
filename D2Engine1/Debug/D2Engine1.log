@@ -1,21 +1,8 @@
-﻿Build started 8/26/2015 10:10:05 PM.
+﻿Build started 8/27/2015 5:27:13 PM.
      1>Project "C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\D2Engine1\D2Engine1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Collisions.cpp Game.cpp IceCaves.cpp Main.cpp TileMap.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt TileMap.cpp
          TileMap.cpp
-         Main.cpp
-         IceCaves.cpp
-         Game.cpp
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(12): warning C4244: 'initializing': conversion from 'UINT' to 'float', possible loss of data
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(13): warning C4244: 'initializing': conversion from 'UINT' to 'float', possible loss of data
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(77): warning C4244: 'argument': conversion from 'UINT' to 'float', possible loss of data
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(93): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(94): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-         Collisions.cpp
-         Camera.cpp
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\camera.cpp(9): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
-     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\camera.cpp(19): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
-         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.exe" /INCREMENTAL /NOLOGO d2d1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Collisions.obj
@@ -42,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:08.56
+Time Elapsed 00:00:01.95
