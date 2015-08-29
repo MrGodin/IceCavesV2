@@ -81,17 +81,9 @@ Sprite::Collide::Collide(Sprite& p)
 {
 
 };
-void Sprite::Collide::SphericalCollision(CollidableObject& obj)
+bool Sprite::Collide::SphericalCollision(CollidableObject& obj)
 {
-	if (Collision::HandleSphericalObjectCollision(parent, obj))
-	{
-		float2 p = parent.GetPosition();
-		float2 v = parent.GetVelocity();
-		float fr = 1.0f / 60.0f;
-		float2 newPos = p + v * fr;
-		parent.SetPosition(newPos);
-	};
-	Collision::HandleMapCollision(parent);
+	return Collision::HandleSphericalObjectCollision(parent, obj);
 }
 void Sprite::Collide::MapCollision()
 {

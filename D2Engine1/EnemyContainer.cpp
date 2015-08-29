@@ -24,15 +24,21 @@ void EnemyContainer::Update(CollidableObject& player, float& dt)
 	for (UINT c = 0; c < list.size(); c++)
 	{
 		Enemy* en = (Enemy*)list[c];
+		// update objects in larger scope
 		if (camera.PointInViewFrame(en->GetPosition(), { 1200.0f,600.0f }))
 		{
-			
+			en->Update(dt);
+			en->GetCollision().MapCollision();
+			// limit scope to view plane
 			if (camera.PointInViewFrame(en->GetPosition(), { 0.0f,0.0f }))
 			{
-				en->GetCollision().SphericalCollision(player);
+				if (en->GetCollision().SphericalCollision(player))
+				{
+					//Remove(c);
+				};
 			}
-			en->GetCollision().MapCollision();
-			en->Update(dt);
+			
+			
 		}
 		
 	}

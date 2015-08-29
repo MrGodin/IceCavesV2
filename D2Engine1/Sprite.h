@@ -24,7 +24,7 @@ public:
 	{
 	public:
 		Collide(Sprite& p);
-		virtual void SphericalCollision(CollidableObject& obj)override;
+		virtual bool SphericalCollision(CollidableObject& obj)override;
 		virtual void MapCollision()override;
 	private:
 		 Sprite& parent;

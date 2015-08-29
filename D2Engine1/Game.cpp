@@ -114,9 +114,9 @@ void Game::renderText()
 }
 void Game::createEnemies()
 {
-	for (int d = 0; d < 8; d++)
+	for (int d = 0; d < 228; d++)
 	{
-		float x = Math::RandFloat(600.0f,4000.0f);
+		float x = Math::RandFloat(600.0f,6000.0f);
 		float y = 600 / 2;
 		int index = 23;
 		D2D1_RECT_F g = Math::GetImageRectFromIndex(27, pMapBitmap, 64, 64);
