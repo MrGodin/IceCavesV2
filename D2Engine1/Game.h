@@ -13,6 +13,7 @@
 #include "DirectWrite.h"
 #include "Enemy.h"
 #include "EnemyContainer.h"
+#include "StaticAnimationContainer.h"
 
 extern PlayerControl controler;
 
@@ -32,6 +33,7 @@ class Game
 	Player* pPlayer = nullptr;
 	
 	EnemyContainer Enemies;
+	StaticAnimationContainer StaticAnimate;
 public:
 	Game(D2D &d2d, UINT Width, UINT Height);
 	~Game();

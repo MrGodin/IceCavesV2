@@ -15,9 +15,10 @@ Enemy::Enemy(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_RECT_
 	core.traction = 0.988f;
 	core.thrust = 12.0f;
 	core.anti_gravity = 0.998f;
-	core.mass = 0.5f;
+	core.mass = 2.5f;
 	core.decayX = 0.989f;
 	core.angle = 0.0f;
+	core.hit_points = 4.0f;
 	core.state = new EnemyJump(core,false,false);
 }
 

@@ -19,6 +19,9 @@ public:
 	virtual void   Rebound(const float2 normal)override;
 	virtual ObjectState* GetState()override;
 	
+	virtual float GetHitPts() { return core.hit_points; }
+	virtual void SetHitPts(const float& val) { core.hit_points = val; }
+	virtual void SetHitPtsInc(const float& val) { core.hit_points += val; }
 	~Player();
 protected:
 	PlayerCore core;

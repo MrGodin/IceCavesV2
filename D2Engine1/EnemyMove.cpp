@@ -13,7 +13,7 @@ void EnemyMove::Update(float dt)
 	pCore.Pos += pCore.Vel * dt;
 	if (ETimer.Update(dt))
 	{
-		Transition(new EnemyJump(pCore, true, false,-200.0f));
+		Transition(new EnemyJump(pCore, true, false,Math::RandFloat(-800.0f,-200.0f)));
 		return;
 	}
 

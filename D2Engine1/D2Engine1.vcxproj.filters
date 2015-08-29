@@ -201,6 +201,12 @@
     <ClInclude Include="ObjContainer.h">
       <Filter>Objects\Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Objects\Images</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticAnimationContainer.h">
+      <Filter>Objects\Images</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -277,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="ObjContainer.cpp">
       <Filter>Objects\Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Objects\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticAnimationContainer.cpp">
+      <Filter>Objects\Images</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

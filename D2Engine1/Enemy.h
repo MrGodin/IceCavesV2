@@ -19,6 +19,10 @@ public:
 	virtual float2  GetCenter()override;
 	virtual void   Rebound(const float2 normal)override;
 	virtual ObjectState* GetState();
+
+	virtual float GetHitPts() { return core.hit_points; }
+	virtual void SetHitPts(const float& val) { core.hit_points = val; }
+	virtual void SetHitPtsInc(const float& val) { core.hit_points += val; }
 private:
 	EnemyCore core;
 };

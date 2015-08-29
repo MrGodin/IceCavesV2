@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Colliadable.h" />
     <ClInclude Include="CollidableObject.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSheetImage.h" />
     <ClInclude Include="StateCores.h" />
+    <ClInclude Include="StaticAnimationContainer.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
@@ -194,6 +196,7 @@
     <ClInclude Include="wstringFunc.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="D2D.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="PlayerStand.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSheetImage.cpp" />
+    <ClCompile Include="StaticAnimationContainer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>

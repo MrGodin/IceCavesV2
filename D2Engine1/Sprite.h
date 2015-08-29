@@ -12,13 +12,16 @@ public:
 	Sprite();
 	Sprite(float2 pos,float Width, float Height, ID2D1Bitmap *Bitmap,D2D1_RECT_F clipR);
 	virtual ~Sprite();
-
+	virtual float GetHitPts() = 0;
+	virtual void SetHitPts(const float& val) = 0;
+	virtual void SetHitPtsInc(const float& val) = 0;
 	//====================================================
 	//Collidable Object
 	void SetProperties(float DpiX, float DpiY, D2D1_PIXEL_FORMAT PixFormat = D2D1::PixelFormat(DXGI_FORMAT_B8G8R8A8_UNORM, D2D1_ALPHA_MODE_PREMULTIPLIED));
 	void SetInterpolationMode(D2D1_BITMAP_INTERPOLATION_MODE InterpMode = D2D1_BITMAP_INTERPOLATION_MODE_LINEAR);
 	void SetTexture(ID2D1Bitmap* bmp) { pBitmap = bmp; }
 	void SetD2ClipRect(D2D1_RECT_F r) { clipRect = r; }
+	
 	//=================================================================================
 	class Collide : public ::Collide
 	{

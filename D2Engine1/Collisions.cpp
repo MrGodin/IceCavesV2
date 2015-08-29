@@ -62,26 +62,14 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 		//// change in momentum
 		float2 velocity = objA.GetVelocity() + impulse * im1;
 		float2 velocity2 = objB.GetVelocity() + -impulse * im2;
-		//float2 velocity =  -impulse * im1;
-		//float2 velocity2 =  -impulse * im2;
-			// cap velocity ? .... 
-			/*velocity.x = max(-6.0f, velocity.x);
-			velocity.x = min(6.0f, velocity.x);
-			velocity.y = max(-6.0f, velocity.y);
-			velocity.y = min(6.0f, velocity.y);
 		
-			velocity2.x = max(-6.0f, velocity2.x);
-			velocity2.x = min(6.0f, velocity2.x);
-			velocity2.y = max(-6.0f, velocity2.y);
-			velocity2.y = min(6.0f, velocity2.y);*/
 		if (objA.GetVelocity().y == 0.0f)
-			velocity.y = 0.0f;
+			velocity.y = -fabs(impulse.y * im1) ;
 		if (objB.GetVelocity().y == 0.0f)
-			velocity2.y = 0.0f;
+			velocity2.y = -fabs(impulse.y * im2);;
+
 		
 		objA.SetVelocity(velocity);
-			//objA.Rebound(velocity.Normalize());
-			//objB.Rebound(velocity2.Normalize());
 		objB.SetVelocity(velocity2);
 		return true;
 

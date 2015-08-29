@@ -7,7 +7,9 @@ Game::Game(D2D &d2d, UINT Width, UINT Height)
 	gfx(d2d),
 	viewport(gfx, { 0,0,(float)Width,(float)Height}),
 	camera(viewport, (float)Width, (float)Height),
-	Enemies(camera)
+	StaticAnimate(camera),
+	Enemies(camera,StaticAnimate)
+	
 {
 	
 	srand((unsigned int)time(0));
@@ -26,7 +28,7 @@ Game::Game(D2D &d2d, UINT Width, UINT Height)
 	loadMap(d, sp);
 	CreatePlayer();
 	createEnemies();
-	
+	StaticAnimate.SetImage(pMapBitmap);
 	running = TRUE;
 }
 
@@ -35,6 +37,7 @@ HRESULT Game::OnRender()
 	pMap->GetDrawable().Rasterize(gfx);
 	camera.Rasterize(pPlayer->GetDrawable());
 	Enemies.Rasterize();
+	StaticAnimate.Rasterize();
 	renderText();
 	return S_OK;
 };
@@ -49,7 +52,7 @@ BOOL Game::OnUpdate(float dt)
 	pPlayer->GetCollision().MapCollision();
 	camera.UpdatePosition(pPlayer->GetPosition());
 	Enemies.Update(*pPlayer, dt);
-	
+	StaticAnimate.Update(dt);
 	return TRUE;
 };
 
