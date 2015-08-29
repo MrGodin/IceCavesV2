@@ -1,5 +1,6 @@
 #include "Sprite.h"
 #include "UtilsD2.h"
+#include "StateCores.h"
 
 Sprite::Sprite()
 	:
@@ -47,6 +48,7 @@ Sprite::Drawable::Drawable(Sprite& p)
 	parent(p)
 {
 	
+	matRot = Mat3x2Math::Rotate(parent.angle, parent.GetCenter());
 	D2_MATRIX_IDENTITY(matWorld);
 }
 void Sprite::Drawable::Translate(const float2& pos)
@@ -55,14 +57,14 @@ void Sprite::Drawable::Translate(const float2& pos)
 }
 void Sprite::Drawable::Transform(D2D1::Matrix3x2F mat)
 {
-	matTrans = mat * matTrans;
+	
+	matTrans = mat *  matTrans;
 }
  void Sprite::Drawable::Rasterize(GrafixD2& gfx)
 {
-	matWorld =  matRot * matScale * matTrans ;
-
+	matWorld =  matRot * matTrans ;
 	gfx.DrawSprite(
-		matTrans,
+		matWorld,
 	    parent.GetDrawSize(),
 		parent.pBitmap,
 		parent.bp,
@@ -81,7 +83,15 @@ Sprite::Collide::Collide(Sprite& p)
 };
 void Sprite::Collide::SphericalCollision(CollidableObject& obj)
 {
-	Collision::HandleSphericalObjectCollision(parent, obj);
+	if (Collision::HandleSphericalObjectCollision(parent, obj))
+	{
+		float2 p = parent.GetPosition();
+		float2 v = parent.GetVelocity();
+		float fr = 1.0f / 60.0f;
+		float2 newPos = p + v * fr;
+		parent.SetPosition(newPos);
+	};
+	Collision::HandleMapCollision(parent);
 }
 void Sprite::Collide::MapCollision()
 {

@@ -6,25 +6,31 @@
 #include "UtilsD2.h"
 #include "rect.h"
 #include <vector>
-class CollidableObject
+
+class CollidableObject 
 {
 protected:
 	std::vector<CollidableObject*>children;
 	UINT type = 0;
 
 public:
-	CollidableObject() {}
-	virtual RectF GetAABB() = 0;
-	virtual float2  GetVelocity() = 0;
-	virtual float2  GetPosition() = 0;
+	CollidableObject()
+	
+	{}
+	virtual RectF GetAABB() { return RectF(0, 0, 0, 0); };
+	virtual float2  GetVelocity() { return float2(0, 0); }
+	virtual float2  GetPosition() { return float2(0, 0); }
 	virtual void   SetVelocity(const float2 v) {};
 	virtual void   SetPosition(const float2 p) {};
-	virtual float  GetRadius() = 0;
-	virtual float  GetMass() = 0;
-	virtual float2  GetCenter() = 0;
+	virtual float  GetRadius() {
+		return 0.0f;
+	};
+	virtual float  GetMass() { return 0.0f; };
+	virtual float2  GetCenter() { return float2(0, 0); }
 	virtual void   Rebound(const float2 normal) {};
-	virtual bool   OnCollision(CollidableObject* in_obj) { return false; };
-	virtual class PlayerCore* GetCore() { return NULL; };
+	virtual class ObjectState* GetState() {	return 0; };
+	
+
 	virtual ~CollidableObject() {};
 
 	UINT Type() { return type; }

@@ -4,6 +4,44 @@
 
 #define MAX_LEVEL_STRINGSIZE 1024 * 5
 
+class _EventTimer
+{
+private:
+	float timer = 0.0f;
+	float life_span = 0.0f;
+public:
+	_EventTimer() {}
+	_EventTimer(const float& lifespan)
+		:
+		life_span(lifespan)
+	{}
+	__inline void Set(const float& lifespan,float Timer = 0.0f)
+	{
+		life_span = lifespan;
+		timer = Timer;
+	}
+	__inline bool Update(const float& dt,const float& lifespan)
+	{
+		if ((timer += dt) > lifespan)
+		{
+			timer = 0.0f;
+			return true;
+		}
+		return false;
+	}
+	__inline bool Update(const float& dt)
+	{
+	
+		if ((timer += dt) > life_span)
+		{
+			timer = 0.0f;
+			return true;
+		}
+		return false;
+	}
+
+};
+
 class _DeltaTime
 {
 private:
@@ -11,6 +49,7 @@ private:
 	__int64 prevTimeStamp = 0;
 	float secsPerCnt = 0.0f;
 	__int64 currTimeStamp = 0;
+	float dt = 0.0f;
 
 public:
 	_DeltaTime() {}
@@ -25,7 +64,7 @@ public:
 	{
 
 		QueryPerformanceCounter((LARGE_INTEGER*)&currTimeStamp);
-		float dt = (currTimeStamp - prevTimeStamp)*secsPerCnt;
+		dt = (currTimeStamp - prevTimeStamp)*secsPerCnt;
 		prevTimeStamp = currTimeStamp;
 		return dt;
 	}

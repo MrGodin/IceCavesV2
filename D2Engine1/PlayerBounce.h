@@ -14,6 +14,7 @@ public:
 		isMoving(false)
 	
 	{
+		pCore.angle = 0.0f;
 		InitialBounceY = pCore.Pos.y;
 		float vY = pCore.Vel.y / pCore.mass;
 		(vY > 0.0f) ? pCore.Vel.y = -vY : pCore.Vel.y = 0.0f;

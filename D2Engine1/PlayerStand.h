@@ -10,6 +10,7 @@ public:
 		PlayerState(core)
 	{
 		pCore.Vel.y = 0.0f;
+		pCore.angle = 0.0f;
 	}
 	virtual void Update(float dt)override;
 	virtual void OnCtrlDirChange(TDirection& d)override;

@@ -12,6 +12,7 @@ void PlayerJump::Update(float dt)
 	{
 		
 		pCore.Vel.y += -(pCore.thrust - pCore.anti_gravity);
+		
 	}
 	else
 	{
@@ -32,7 +33,8 @@ void PlayerJump::Update(float dt)
 	pCore.Vel.y = __max(-pCore.maxSpeedY, pCore.Vel.y);
 	pCore.Vel.x = __min(pCore.maxSpeedX, pCore.Vel.x);
 	pCore.Vel.x = __max(-pCore.maxSpeedX, pCore.Vel.x);
-
+	
+	
 	pCore.Pos += pCore.Vel * dt;
 }
 void PlayerJump::OnCtrlJumpPress()

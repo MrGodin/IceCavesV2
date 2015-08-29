@@ -58,6 +58,12 @@
     <Filter Include="Objects\Keyboard">
       <UniqueIdentifier>{12f95190-c197-4f0b-9c28-d6a60c8aa0bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Enemy">
+      <UniqueIdentifier>{9d1ebb93-7d20-4073-ad85-52e49673529a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\State Machines\Enemy">
+      <UniqueIdentifier>{fdc1f1f1-84d9-4c1a-b4fb-b74f70f4ba98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -177,6 +183,24 @@
     <ClInclude Include="wstringFunc.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyMove.h">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyJump.h">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="StateCores.h">
+      <Filter>Objects\State Machines</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyContainer.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjContainer.h">
+      <Filter>Objects\Game Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -238,6 +262,21 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Objects\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyMove.cpp">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyJump.cpp">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyContainer.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjContainer.cpp">
+      <Filter>Objects\Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

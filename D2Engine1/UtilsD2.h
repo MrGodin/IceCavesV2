@@ -21,6 +21,8 @@
 #include <iomanip>
 #include <assert.h>
 #include <algorithm>
+#include "stdio.h"
+#include <stdlib.h> 
 
 #include "structs.h"
 #include "colors.h"

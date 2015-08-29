@@ -18,9 +18,14 @@ Sprite(pos,width,height,bmp,cliprect)
 	core.anti_gravity = 0.998f;
 	core.mass = 2.0f;
 	core.decayX = 0.989f;
+	core.angle = 0.0f;
 	core.state = new PlayerMove(core);
 }
 //=======================================================
+ObjectState* Player::GetState()
+{
+	return core.state;
+}
 Player::~Player()
 {
 	
@@ -33,14 +38,14 @@ void Player::Update(float dt)
 }
 D2D_RECT_F Player::GetDrawSize() 
 { 
-	float2 p(core.Pos.x - 32 , core.Pos.y - 32 );
-	return D2D1::RectF(p.x , p.y,p.x +width ,p.y + height); 
+	float2 p(core.Pos.x  , core.Pos.y  );
+	return D2D1::RectF(p.x , p.y,p.x + width ,p.y + height); 
 }
  
 RectF Player::GetAABB()
 {
-	float2 p(core.Pos.x - 16, core.Pos.y - 16);
-	return RectF(p.y, p.x, p.x + width - 32, p.y + height - 32);
+	float2 p(core.Pos.x, core.Pos.y );
+	return RectF(p.y, p.x, p.x + width , p.y + height  );
 };
 float2  Player::GetVelocity()
 {
@@ -68,11 +73,9 @@ float  Player::GetMass()
 };
 float2  Player::GetCenter()
 {
-	return float2(core.Pos.x + (width * 0.5f), core.Pos.y + (height * 0.5f));
+	return float2(GetAABB().left + (width * 0.5f), GetAABB().top + (height* 0.5f));
 };
 void   Player::Rebound(const float2 normal)
-{};
-PlayerCore* Player::GetCore()
 {
-	return &core;
+	core.Vel -= normal *(core.Vel * normal) * 2.0f;
 };

@@ -9,7 +9,8 @@ public:
 		:
 		PlayerState(core)
 	{
-
+		pCore.angle = 0.0f;
+		pCore.Vel.y = 0.0f;
 	}
 	virtual void Update(float dt)override;
 	virtual void OnCtrlDirChange(TDirection& d)override;

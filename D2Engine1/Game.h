@@ -11,6 +11,8 @@
 #include "Player.h"
 #include "PlayerControl.h"
 #include "DirectWrite.h"
+#include "Enemy.h"
+#include "EnemyContainer.h"
 
 extern PlayerControl controler;
 
@@ -29,6 +31,7 @@ class Game
 	BOOL running = FALSE;
 	Player* pPlayer = nullptr;
 	
+	EnemyContainer Enemies;
 public:
 	Game(D2D &d2d, UINT Width, UINT Height);
 	~Game();
@@ -40,6 +43,7 @@ public:
 	void CreatePlayer();
 	void Resize(float w, float h) { camera.Resize(w, h); }
 	void renderText();
+	void createEnemies();
 	BOOL OnUpdate(float dt);
 	HRESULT OnRender();
 	BOOL Run(_DeltaTime &DeltaTime);

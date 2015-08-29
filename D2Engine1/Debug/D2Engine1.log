@@ -1,20 +1,59 @@
-﻿Build started 8/27/2015 5:27:13 PM.
-     1>Project "C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\D2Engine1\D2Engine1.vcxproj" on node 2 (Build target(s)).
+﻿Build started 8/29/2015 10:11:18 AM.
+     1>Project "C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\D2Engine1\D2Engine1.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt TileMap.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Collisions.cpp D2D.cpp Direct3D10.cpp DirectWrite.cpp Enemy.cpp EnemyContainer.cpp EnemyJump.cpp EnemyMove.cpp Game.cpp GrafixD2.cpp IceCaves.cpp keyboardcontroller.cpp Main.cpp MapTile.cpp ObjContainer.cpp Player.cpp PlayerBounce.cpp PlayerJump.cpp PlayerMove.cpp PlayerStand.cpp Sprite.cpp SpriteSheetImage.cpp Texture.cpp TileMap.cpp
          TileMap.cpp
+         Texture.cpp
+         SpriteSheetImage.cpp
+         Sprite.cpp
+         PlayerStand.cpp
+         PlayerMove.cpp
+         PlayerJump.cpp
+         PlayerBounce.cpp
+         Player.cpp
+         ObjContainer.cpp
+         MapTile.cpp
+         Main.cpp
+         keyboardcontroller.cpp
+         IceCaves.cpp
+         GrafixD2.cpp
+         Game.cpp
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(15): warning C4244: 'initializing': conversion from 'UINT' to 'float', possible loss of data
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(16): warning C4244: 'initializing': conversion from 'UINT' to 'float', possible loss of data
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(83): warning C4244: 'argument': conversion from 'UINT' to 'float', possible loss of data
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(103): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\game.cpp(104): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+         EnemyMove.cpp
+         EnemyJump.cpp
+         EnemyContainer.cpp
+         Enemy.cpp
+         Generating Code...
+         Compiling...
+         DirectWrite.cpp
+         Direct3D10.cpp
+         D2D.cpp
+         Collisions.cpp
+         Camera.cpp
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\camera.cpp(37): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
+     1>c:\users\ben\documents\visual studio 2015\projects\d2engine1\d2engine1\camera.cpp(47): warning C4244: 'argument': conversion from 'float' to 'UINT', possible loss of data
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.exe" /INCREMENTAL /NOLOGO d2d1.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.lib" /MACHINE:X86 Debug\Camera.obj
          Debug\Collisions.obj
          Debug\D2D.obj
          Debug\Direct3D10.obj
          Debug\DirectWrite.obj
+         Debug\Enemy.obj
+         Debug\EnemyContainer.obj
+         Debug\EnemyJump.obj
+         Debug\EnemyMove.obj
          Debug\Game.obj
          Debug\GrafixD2.obj
          Debug\IceCaves.obj
          Debug\keyboardcontroller.obj
          Debug\Main.obj
          Debug\MapTile.obj
+         Debug\ObjContainer.obj
          Debug\Player.obj
          Debug\PlayerBounce.obj
          Debug\PlayerJump.obj
@@ -25,8 +64,8 @@
          Debug\Texture.obj
          Debug\TileMap.obj
          D2Engine1.vcxproj -> C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\Debug\D2Engine1.exe
-     1>Done Building Project "C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\D2Engine1\D2Engine1.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Ben\documents\visual studio 2015\Projects\D2Engine1\D2Engine1\D2Engine1.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.95
+Time Elapsed 00:00:33.62

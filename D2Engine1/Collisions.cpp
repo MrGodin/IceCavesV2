@@ -16,7 +16,7 @@ void  Collision::DoSupport(CollidableObject& objA)
 			return;
 		
 	}
-	objA.GetCore()->state->OnUnsupported();
+	objA.GetState()->OnUnsupported();
 
 
 }
@@ -56,27 +56,32 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 		if (vn > 0.0f) return false;
 
 		//// collision impulse
-		float i = (-(1.0f + 1.25f) * vn) / (im1 + im2);
+		float i = (-(1.0f + 2.25f) * vn) / (im1 + im2);
 		float2 impulse = mtd * i;
-
+		
 		//// change in momentum
 		float2 velocity = objA.GetVelocity() + impulse * im1;
-		float2 velocity2 = objB.GetVelocity() - impulse * im2;
-
-		// cap velocity ? .... 
-		velocity.x = max(-120.0f, velocity.x);
-		velocity.x = min(120.0f, velocity.x);
-		velocity.y = max(-120.0f, velocity.y);
-		velocity.y = min(120.0f, velocity.y);
-
-		velocity2.x = max(-120.0f, velocity2.x);
-		velocity2.x = min(120.0f, velocity2.x);
-		velocity2.y = max(-120.0f, velocity2.y);
-		velocity2.y = min(120.0f, velocity2.y);
-
-
-
+		float2 velocity2 = objB.GetVelocity() + -impulse * im2;
+		//float2 velocity =  -impulse * im1;
+		//float2 velocity2 =  -impulse * im2;
+			// cap velocity ? .... 
+			/*velocity.x = max(-6.0f, velocity.x);
+			velocity.x = min(6.0f, velocity.x);
+			velocity.y = max(-6.0f, velocity.y);
+			velocity.y = min(6.0f, velocity.y);
+		
+			velocity2.x = max(-6.0f, velocity2.x);
+			velocity2.x = min(6.0f, velocity2.x);
+			velocity2.y = max(-6.0f, velocity2.y);
+			velocity2.y = min(6.0f, velocity2.y);*/
+		if (objA.GetVelocity().y == 0.0f)
+			velocity.y = 0.0f;
+		if (objB.GetVelocity().y == 0.0f)
+			velocity2.y = 0.0f;
+		
 		objA.SetVelocity(velocity);
+			//objA.Rebound(velocity.Normalize());
+			//objB.Rebound(velocity2.Normalize());
 		objB.SetVelocity(velocity2);
 		return true;
 
@@ -189,6 +194,12 @@ void Collision::HandleMapCollision(CollidableObject& objA)
 
 	while (HandleSingleMapTileCollision(objA,tileRect))
 	{
-		objA.GetCore()->state->OnCollision(tileRect, objRect);
+	    RectF objRect(objA.GetAABB().top, objA.GetAABB().left, objA.GetAABB().right, objA.GetAABB().bottom);
+		objA.GetState()->OnCollision(tileRect, objRect);
 	}
+}
+void Collision::HandleAABBCollision(CollidableObject& objA, CollidableObject& objB)
+{
+	RectF objA_AABB = objA.GetAABB();
+	RectF objB_AABB = objB.GetAABB();
 }

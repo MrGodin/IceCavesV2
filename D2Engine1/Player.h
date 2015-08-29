@@ -17,7 +17,8 @@ public:
 	virtual float  GetMass()override;
 	virtual float2  GetCenter()override;
 	virtual void   Rebound(const float2 normal)override;
-	virtual  PlayerCore* GetCore()override;
+	virtual ObjectState* GetState()override;
+	
 	~Player();
 protected:
 	PlayerCore core;

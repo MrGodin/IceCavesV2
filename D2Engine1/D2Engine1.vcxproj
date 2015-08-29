@@ -157,6 +157,10 @@
     <ClInclude Include="Direct3D10.h" />
     <ClInclude Include="DirectWrite.h" />
     <ClInclude Include="Drawable.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyContainer.h" />
+    <ClInclude Include="EnemyJump.h" />
+    <ClInclude Include="EnemyMove.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="gameMath.h" />
     <ClInclude Include="GrafixD2.h" />
@@ -167,6 +171,7 @@
     <ClInclude Include="MatrixMath.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="MapTile.h" />
+    <ClInclude Include="ObjContainer.h" />
     <ClInclude Include="ObjectState.h" />
     <ClInclude Include="PlayerBounce.h" />
     <ClInclude Include="PlayerControl.h" />
@@ -178,6 +183,7 @@
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSheetImage.h" />
+    <ClInclude Include="StateCores.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TileMap.h" />
@@ -193,12 +199,17 @@
     <ClCompile Include="D2D.cpp" />
     <ClCompile Include="Direct3D10.cpp" />
     <ClCompile Include="DirectWrite.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyContainer.cpp" />
+    <ClCompile Include="EnemyJump.cpp" />
+    <ClCompile Include="EnemyMove.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GrafixD2.cpp" />
     <ClCompile Include="IceCaves.cpp" />
     <ClCompile Include="keyboardcontroller.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MapTile.cpp" />
+    <ClCompile Include="ObjContainer.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBounce.cpp" />
     <ClCompile Include="PlayerJump.cpp" />

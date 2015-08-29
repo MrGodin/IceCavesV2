@@ -29,6 +29,7 @@ public:
 	float power;
 	float mass;
 	int way_point;
+	float angle;
 	class ObjectState* state = NULL;
 	
 };
@@ -56,6 +57,7 @@ public:
 	float power;
 	float mass;
 	int way_point;
+	float angle;
 	class ObjectState* state = NULL;
 	
 };
@@ -64,9 +66,11 @@ class EnemyCore
 {
 public:
 	EnemyCore(){}
-	//BiDirection dir;
-	Vec2F pos;
-	Vec2F vel;
+	TDirection dir;
+	Vec2F Pos;
+	Vec2F Vel;
+	float accelX;
+	float accelY;
 	float thrust;
 	float traction;
 	float bounce_absorb;
@@ -74,6 +78,12 @@ public:
 	float shield_strength;
 	float hit_points;
 	float power;
+	float mass;
+	float angle;
+	float decayX;
+	float decayY;
+	float maxSpeedX;
+	float maxSpeedY;
 	class ObjectState* state = NULL;
 
 };

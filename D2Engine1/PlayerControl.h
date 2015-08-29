@@ -14,24 +14,24 @@ public:
 		if (IsUpPressed())
 		{
 			
-			player->GetCore()->state->OnCtrlJumpPress();
+			player->GetState()->OnCtrlJumpPress();
 		}
 		if (IsLeftPressed())
 		{
 			
-			player->GetCore()->state->OnCtrlDirChange(TDirection::Left());
+			player->GetState()->OnCtrlDirChange(TDirection::Left());
 		}
 		if (IsRightPressed())
 		{
 			
-			player->GetCore()->state->OnCtrlDirChange(TDirection::Right());
+			player->GetState()->OnCtrlDirChange(TDirection::Right());
 		}
 		if (IsKeyLastUp(VK_LEFT) || IsKeyLastUp(VK_RIGHT) || IsKeyLastUp(VK_UP))
 		{
 			if (IsKeyLastUp(VK_UP))
-				player->GetCore()->state->OnCtrlJumpRelease();
+				player->GetState()->OnCtrlJumpRelease();
 			else
-			    player->GetCore()->state->OnCtrlDirRelease();
+			    player->GetState()->OnCtrlDirRelease();
 			lastKeyUp = 0x0;
 			
 		}

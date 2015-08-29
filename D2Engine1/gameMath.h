@@ -2,9 +2,13 @@
 #include "Vec2.h"
 
 static const float PI_F = 3.14159265358979323846f;
+
 class Math
 {
 public:
+
+	static float DegToRad(float angle) { return angle * PI_F / 180.0f; }
+	static float RadToDeg(float rad) {return rad * 180.0f / PI_F;}
 	template<typename T>
 	static __inline T Negate(T val)
 	{
@@ -18,9 +22,12 @@ public:
 
 	static __inline float CalculateRadians(float2 velocity)
 	{
+		
 		float hypothenuse = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
 		float sine = velocity.y / hypothenuse;
-		float angle = asin(sine);
+		float angle = acos(sine);
+		angle = angle * -Math::sgn(velocity.x);
+		 angle = atan2f(velocity.y, velocity.x);
 		return angle;
 	};
 	static __inline D2D1_RECT_F GetImageRectFromIndex(int index, ID2D1Bitmap* bmp, int clipw, int cliph)
