@@ -12,6 +12,9 @@ private:
 	Camera& camera;
 	StaticAnimationContainer& animate;
 	void createExplosion(float2 pos);
+	void facePlayer(CollidableObject& obj, float2 playerPos);
+	void fireAmmo(CollidableObject& obj);
+	bool checkAmmoLife(CollidableObject& obj, float &dt);
 public:
 	
 	EnemyContainer(Camera& cam, StaticAnimationContainer& animations);

@@ -64,6 +64,9 @@
     <Filter Include="Objects\State Machines\Enemy">
       <UniqueIdentifier>{fdc1f1f1-84d9-4c1a-b4fb-b74f70f4ba98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Event">
+      <UniqueIdentifier>{b96fa5f2-e00d-4614-8432-0b83e6a37218}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -207,6 +210,24 @@
     <ClInclude Include="StaticAnimationContainer.h">
       <Filter>Objects\Images</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyPatrol.h">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Desc.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Objects\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCannon.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAmmo.h">
+      <Filter>Objects\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAmmoMove.h">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -289,6 +310,21 @@
     </ClCompile>
     <ClCompile Include="StaticAnimationContainer.cpp">
       <Filter>Objects\Images</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPatrol.cpp">
+      <Filter>Objects\State Machines\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Event.cpp">
+      <Filter>Objects\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyCannon.cpp">
+      <Filter>Objects\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAmmoMove.cpp">
+      <Filter>Objects\State Machines\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

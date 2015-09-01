@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Drawable.h"
 #include "ImageGrid.h"
+#include "EnemyContainer.h"
 
 
 
@@ -11,7 +12,7 @@
 class TileMap
 {
 public:
-	TileMap(Camera& cam,ID2D1Bitmap* bmp, GameLevelData& level_data );
+	TileMap(Camera& cam,EnemyContainer& enContainer,ID2D1Bitmap* bmp, GameLevelData& level_data );
 	~TileMap();
 	static MapTile* GetTile(int ix, int iy);
 private:
@@ -20,6 +21,7 @@ private:
 	static UINT uCols;
 	GridF grid;
 	Camera& camera;
+	EnemyContainer& enemies;
 	ID2D1Bitmap* image = nullptr;
 	GameLevelData levelData;
 	
@@ -32,7 +34,7 @@ private:
 	};
 	static _DrawIndex drawIndexes;
 	
-	
+	void createEnemy(enemyType type, float2 pos);
 public:
 	class Drawable : public ::Drawable
 	{

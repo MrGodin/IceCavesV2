@@ -8,6 +8,7 @@ class PlayerJump : public PlayerState
 protected:
 	bool isMoving;
 	bool isThrusting;
+	float thrust;
 public:
 	PlayerJump(PlayerCore& core,bool moving,bool boosting,float initialYVel = 0.0f)
 		:
@@ -15,7 +16,10 @@ public:
 		isMoving(moving),
 		isThrusting(boosting)
 	{
-		pCore.Vel.y = initialYVel;
+		if(isThrusting)
+		  pCore.Vel.y = 0.0f;
+
+		thrust = -20.0f;
 	}
 	virtual void Update(float dt)override;
 	virtual void OnCtrlDirChange(TDirection& d)override;

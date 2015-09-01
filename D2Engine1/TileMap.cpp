@@ -1,14 +1,16 @@
 
 #include "TileMap.h"
 #include "GrafixD2.h"
-
+#include "Desc.h"
+#include "EnemyCannon.h"
 std::vector<MapTile*>TileMap::tiles;
 UINT TileMap::uCols;
 UINT TileMap::uRows;
 TileMap::_DrawIndex TileMap::drawIndexes;
-TileMap::TileMap(Camera& cam, ID2D1Bitmap* bmp, GameLevelData& level_data)
+TileMap::TileMap(Camera& cam, EnemyContainer& enContainer,ID2D1Bitmap* bmp, GameLevelData& level_data)
 	:
 	camera(cam),
+	enemies(enContainer),
 	image(bmp),
 	levelData(level_data)
 {
@@ -25,6 +27,40 @@ MapTile* TileMap::GetTile(int ix, int iy)
 	UINT result = (UINT)iy  * uCols + (UINT)ix;
 	if (result < 0)return NULL;
 	return tiles[result];
+}
+void TileMap::createEnemy(enemyType type, float2 pos)
+{
+	EnemyCore core;
+	Enemy::EnemyDesc desc;
+	switch (type)
+	{
+		case etLevel1Roamer:
+		{
+			desc = GenericDescription::Level1Roamer(pos, image);
+			enemies.Add(new Enemy(desc));
+			break;
+		}
+		case etLevel1GuardTank:
+		{
+			desc = GenericDescription::Level1GuardTank(pos, image);
+			enemies.Add(new Enemy(desc));
+			break;
+		}
+		case etLeve1Cannon:
+		{
+			desc = GenericDescription::Level1Cannon(pos, image);
+			float delay = 2.0f;
+			enemies.Add(new EnemyCannon(desc, delay));
+			break;
+		}
+		default:
+			assert(type < etNumbTypes);
+			break;
+	}
+	
+	
+	
+	
 }
 void TileMap::Create(const float2& startPt)
 {
@@ -54,8 +90,21 @@ void TileMap::Create(const float2& startPt)
 
 			switch (levelData.mapStr[index])
 			{
+			case '0':
+				createEnemy(etLevel1Roamer, float2(r.left, r.top));
+				tile->AddType(ttSpace);
+				tile->SetImageIndex(63);
+				break;
 			case '1':
+				createEnemy(etLevel1GuardTank, float2(r.left, r.top));
+				tile->AddType(ttSpace);
+				tile->SetImageIndex(63);
+			    break;
 			case '2':
+				createEnemy(etLeve1Cannon, float2(r.left, r.top));
+				tile->AddType(ttSpace);
+				tile->SetImageIndex(63);
+				break;
 			case '3':
 			case '4':
 			case 'A':
@@ -155,6 +204,9 @@ void TileMap::SetDrawIndex(float2 cam_pos, UINT width, UINT height)
 	drawIndexes.startY = (cpos.y / h);
 	drawIndexes.endX   = (newX / w)  + 1;
 	drawIndexes.endY   = (newY / h) + 1;
+	
+	if (drawIndexes.startY < 0)drawIndexes.startY = 0;
+	if (drawIndexes.startX < 0)drawIndexes.startX = 0;
 	if (drawIndexes.endY > uRows)drawIndexes.endY = uRows;
 	if (drawIndexes.endX > uCols)drawIndexes.endX = uCols;
 	

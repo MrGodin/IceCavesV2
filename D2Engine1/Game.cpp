@@ -1,9 +1,11 @@
 #include "Game.h"
 #include "IceCaves.h"
+#include "Desc.h"
 
-Game::Game(D2D &d2d, UINT Width, UINT Height)
+Game::Game(D2D &d2d, Direct3D10& d3d ,UINT Width, UINT Height)
 	:
 	d2d(d2d),
+	d3d(d3d),
 	gfx(d2d),
 	viewport(gfx, { 0,0,(float)Width,(float)Height}),
 	camera(viewport, (float)Width, (float)Height),
@@ -11,7 +13,8 @@ Game::Game(D2D &d2d, UINT Width, UINT Height)
 	Enemies(camera,StaticAnimate)
 	
 {
-	
+	viewPortPos = float2(0.0f,0.0f);
+	Drawable::SetViewPort(viewPortPos);
 	srand((unsigned int)time(0));
 	OnResetDevice();
 	float w = Width;
@@ -86,26 +89,49 @@ void Game::loadMap(GameLevelData& data, float2 startPt)
 	RectF r(0, 0, data.map_width, data.map_height);
 	camera.ConfineToMap(r);
 
-	pMap = new TileMap(camera, pMapBitmap, data);
+	pMap = new TileMap(camera,Enemies, pMapBitmap, data);
 	pMap->CreateImageGrid(512, 512, 64);
 	pMap->Create(startPt);
 }
 //==========================
 void Game::CreatePlayer()
 {
-	float x =  800 / 2;
-	float y =  600 / 2;
-	int index = 23;
-	D2D1_RECT_F g = Math::GetImageRectFromIndex(23, pMapBitmap, 64, 64);
-	g.left += 16;
-	g.top += 16;
-	g.right -= 16;
-	g.bottom -= 16;
-	int row = index / 8;
-	int col = index % 8; // remainder
-	float dx = col * 64;
-	float dy = row * 64;
-	pPlayer = new Player(float2(x, y), 32, 32, pMapBitmap, g);
+	Player::PlayerDesc desc;
+	PlayerCore core;
+	StaticAnimation::AnimationDesc an;
+	Sprite::SpriteDesc sprite;
+
+	float x = 800 / 2;
+	float y = 600 / 2;
+	
+	D2D1_RECT_F g = Math::GetImageRectFromIndex(33, pMapBitmap, 64, 64);
+
+	sprite.width = 42;
+	sprite.height = 42;
+
+	core.mass = 1.75;
+	
+
+	an.bmp = pMapBitmap;
+	an.clipHeight = 64;
+	an.clipWidth = 64;
+	an.drawHeight = 42;
+	an.drawWidth = 42;// sprite.width;
+	an.keep_alive = true;
+	an.frames = 2;
+	an.startFrame = 0;
+	an.endFrame = an.frames - 1;
+	an.life_span = 0.5f;
+	an.clipOffsetW = an.clipOffsetH = 0;
+	an.do_animate = false;
+	an.index = 0;
+	an.clip_startpos = float2(g.left, g.top);
+	an.pos = float2(x,y);
+	core.Pos = an.pos;
+	desc.core = core;
+	sprite.animateDesc = an;
+	desc.sprite = sprite;
+	pPlayer = new Player(desc);
 }
 void Game::renderText()
 {
@@ -117,39 +143,27 @@ void Game::renderText()
 }
 void Game::createEnemies()
 {
-	for (int d = 0; d < 228; d++)
-	{
-		float x = Math::RandFloat(600.0f,6000.0f);
-		float y = 600 / 2;
-		int index = 23;
-		D2D1_RECT_F g = Math::GetImageRectFromIndex(27, pMapBitmap, 64, 64);
-		g.left += 16;
-		g.top += 16;
-		g.right -= 16;
-		g.bottom -= 16;
-		Enemy* E;
-		E = new Enemy(float2(x, y), 32, 32, pMapBitmap, g);
-		Enemies.Add(E);
-	}
+	
 }
 //////////////////////////////////////////////////////////////////////////////
 BOOL Game::Run(_DeltaTime &DeltaTime)
 {	
 #ifdef _DEBUG
 	float deltaTime = 1.0f / 60.0f;
-#elif
+#else
 	float deltaTime = DeltaTime.deltaTime();
 #endif
 
 	if (OnUpdate(deltaTime) == FALSE)
 		return FALSE;
+	
 	if (FAILED(gfx.StartFrame()))
 		return FALSE;
 	if (FAILED(OnRender()))
 		return FALSE;
 	if (FAILED(gfx.EndFrame()))
 		return FALSE;
-
+	
 	return running;
 }
 

@@ -5,7 +5,15 @@
 class Player : public Sprite
 {
 public:
-	Player(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_RECT_F cliprect);
+	struct PlayerDesc
+	{
+		PlayerCore core;
+		Sprite::SpriteDesc sprite;
+		float width;
+		float height;
+	};
+public:
+	Player(PlayerDesc& desc);
 	virtual void Update(float dt)override;
 	virtual D2D_RECT_F GetDrawSize()override;
 	virtual RectF GetAABB()override;
@@ -17,6 +25,8 @@ public:
 	virtual float  GetMass()override;
 	virtual float2  GetCenter()override;
 	virtual void   Rebound(const float2 normal)override;
+	virtual TDirection GetDirection()override;
+	virtual TDirection GetOppositeDirection()override;
 	virtual ObjectState* GetState()override;
 	
 	virtual float GetHitPts() { return core.hit_points; }
@@ -25,4 +35,5 @@ public:
 	~Player();
 protected:
 	PlayerCore core;
+	PlayerDesc Desc;
 };

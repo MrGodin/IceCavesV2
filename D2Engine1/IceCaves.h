@@ -1,6 +1,7 @@
 #pragma once
 #include "Game.h"
 #include "D2D.h"
+#include "Direct3D10.h"
 
 
 //============================================================
@@ -26,5 +27,6 @@ public:
 	D2D *d2d;
 	Game *game;
 	_DeltaTime dt;
+	Direct3D10 *pD3D;
 
 };

@@ -6,16 +6,17 @@ StaticAnimationContainer::StaticAnimationContainer(Camera& cam)
 {
 
 }
-void StaticAnimationContainer::Add(StaticAnimation::StaticAnimationDesc& desc)
+StaticAnimation* StaticAnimationContainer::Add(StaticAnimation::AnimationDesc& desc)
 {
 	desc.bmp = image;
 	animations.push_back(new StaticAnimation(desc));
+	return animations[animations.size() - 1];
 }
 void StaticAnimationContainer::Remove(UINT& index)
 {
 	size_t size = animations.size();
 	auto ptr1 = animations.begin() + index;
-	std::for_each(ptr1, ptr1 + 1, delete_ptr<StaticAnimation >);
+	std::for_each(ptr1, ptr1 + 1, delete_ptr<StaticAnimation>);
 	animations.erase(ptr1);
 	animations.resize(size - 1);
 }

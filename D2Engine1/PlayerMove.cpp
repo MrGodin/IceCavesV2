@@ -6,7 +6,8 @@
 
 void PlayerMove::Update(float dt)
 {
-	pCore.thrust += 0.15f;
+	
+
 	pCore.Vel.x += pCore.dir.Translate(pCore.accelX);
 	// confine to either - or + maxSpeed
 	pCore.Vel.x = __min(pCore.maxSpeedX, pCore.Vel.x);
@@ -24,7 +25,7 @@ void PlayerMove::OnCtrlDirChange(TDirection& d)
 }
 void PlayerMove::OnCtrlJumpPress()
 {
-	Transition(new PlayerJump(pCore, true, true, -0.5f));
+	Transition(new PlayerJump(pCore, true, true, -20.5f));
 }
 
 void PlayerMove::OnUnsupported()

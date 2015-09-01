@@ -56,7 +56,7 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 		if (vn > 0.0f) return false;
 
 		//// collision impulse
-		float i = (-(1.0f + 2.25f) * vn) / (im1 + im2);
+		float i = (-(1.0f + 1.25f) * vn) / (im1 + im2);
 		float2 impulse = mtd * i;
 		
 		//// change in momentum
@@ -68,6 +68,7 @@ bool Collision::HandleSphericalObjectCollision(CollidableObject& objA, Collidabl
 		if (objB.GetVelocity().y == 0.0f)
 			velocity2.y = -fabs(impulse.y * im2);;
 
+		
 		
 		objA.SetVelocity(velocity);
 		objB.SetVelocity(velocity2);

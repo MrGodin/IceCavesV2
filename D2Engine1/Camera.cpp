@@ -33,7 +33,7 @@ void Camera::Resize(float& w, float& h)
 {
 	screen_width = w;
 	screen_height = h;
-	center = Vec2F(w / 2, h / 2);
+	center = Vec2F(screen_width / 2, screen_height / 2);
 	TileMap::SetDrawIndex(pos, w, h);
 };
 

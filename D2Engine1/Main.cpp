@@ -10,7 +10,7 @@ int WINAPI WinMain(
 	int /* nCmdShow */
 	)
 {
-	UINT scrnWidth = 800, scrnHeight = 600;
+	UINT scrnWidth = 1024, scrnHeight = 600;
 
 	IceCaves *app = new IceCaves();
 	if (app)

@@ -15,7 +15,8 @@ public:
 	}
 	virtual void Remove(UINT& index);
 	void SetImage(ID2D1Bitmap* img) { image = img; }
-	void Add(StaticAnimation::StaticAnimationDesc& desc);
+	ID2D1Bitmap* GetImage() { return image; }
+	StaticAnimation*  Add(StaticAnimation::AnimationDesc& desc);
 	void Update(float& dt);
 	void Rasterize();
 };

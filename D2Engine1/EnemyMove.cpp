@@ -11,10 +11,13 @@ void EnemyMove::Update(float dt)
 	pCore.Vel.x = __min(pCore.maxSpeedX, pCore.Vel.x);
 	pCore.Vel.x = __max(-pCore.maxSpeedX, pCore.Vel.x);
 	pCore.Pos += pCore.Vel * dt;
-	if (ETimer.Update(dt))
+	if (pCore.doUnsupported)
 	{
-		Transition(new EnemyJump(pCore, true, false,Math::RandFloat(-800.0f,-200.0f)));
-		return;
+		if (ETimer.Update(dt))
+		{
+			Transition(new EnemyJump(pCore, true, false, Math::RandFloat(-800.0f, -200.0f)));
+			return;
+		}
 	}
 
 }
@@ -22,7 +25,24 @@ void EnemyMove::Update(float dt)
 
 void EnemyMove::OnUnsupported()
 {
-	Transition(new EnemyJump(pCore, false, false));
+	if (pCore.doUnsupported)
+	{
+		Transition(new EnemyJump(pCore, false, false));
+	}
+	else 
+	{
+		if (pCore.Vel.y == 0.0f)
+		{
+			pCore.Pos.x += -pCore.Vel.x * (1.0f / 60.0f) * 2.0f;
+			pCore.Vel.x = -pCore.Vel.x;
+			pCore.dir.Reverse();
+		}
+		else
+		{
+			Transition(new EnemyJump(pCore, false, false));
+		}
+		
+	}
 }
 void EnemyMove::OnCollision(const RectF& rect, const RectF& FRect)
 {

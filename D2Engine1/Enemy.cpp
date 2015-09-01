@@ -2,25 +2,39 @@
 
 #include "Enemy.h"
 #include "EnemyJump.h"
-Enemy::Enemy(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_RECT_F cliprect)
-	:
-	Sprite(pos, width, height, bmp, cliprect)
+#include "EnemyPatrol.h"
+#include "EnemyMove.h"
+Enemy::Enemy(EnemyDesc& desc)
+:
+Sprite(desc.sprite),
+core(desc.core)
 {
-	core.Pos = pos;
-	core.Vel.x = 0.0f;
-	core.accelX = 2.0f;
-	core.maxSpeedX = 226.0f;
-	core.maxSpeedY = 326.0f;
-	core.dir = TDirection::Right();
-	core.traction = 0.988f;
-	core.thrust = 12.0f;
-	core.anti_gravity = 0.998f;
-	core.mass = 2.5f;
-	core.decayX = 0.989f;
-	core.angle = 0.0f;
-	core.hit_points = 4.0f;
-	core.state = new EnemyJump(core,false,false);
+	
+	type = (UINT)core.Type;
+	switch (core.Type)
+	{
+	case etLevel1Roamer:
+		core.doUnsupported = true;
+		core.state = new EnemyJump(core, false, false, 12.0f);
+
+		break;
+	case etLevel1GuardTank:
+		core.doUnsupported = false;
+		
+		core.state =  new EnemyJump(core, false, false,12.0f);;
+	break;
+	case etLeve1Cannon:
+		core.doUnsupported = false;
+
+		core.state = new EnemyJump(core, false, false, 12.0f);;
+		break;
+	default:
+		assert(type < etNumbTypes);
+	break;
+	}
+
 }
+
 
 Enemy::~Enemy()
 {
@@ -30,7 +44,12 @@ Enemy::~Enemy()
 void Enemy::Update(float dt)
 {
 	core.state->Update(dt);
-	pos = core.Pos;
+	animation.SetPos(core.Pos);
+	animation.Update(dt);
+	if(!animation.Animate())
+	  core.dir.IsLeft() ? SetImageIndex(1) : SetImageIndex(0);
+
+	//pos = core.Pos;
 }
 D2D_RECT_F Enemy::GetDrawSize()
 {

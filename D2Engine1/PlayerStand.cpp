@@ -6,7 +6,7 @@
 
 void PlayerStand::Update(float dt)
 {
-	pCore.thrust += 0.15f;
+	
 	pCore.Vel.x *= pCore.traction;
 	pCore.Pos += pCore.Vel * dt;
 }
@@ -18,7 +18,7 @@ void PlayerStand::OnCtrlDirChange(TDirection& d)
 }
 void PlayerStand::OnCtrlJumpPress()
 {
-	Transition(new PlayerJump(pCore, false, true, -0.5f));
+	Transition(new PlayerJump(pCore, false, true, -20.5f));
 }
 
 void PlayerStand::OnUnsupported()

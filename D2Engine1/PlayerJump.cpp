@@ -7,27 +7,20 @@
 
 void PlayerJump::Update(float dt)
 {
-	
 	if (isThrusting)
-	{
-		
-		pCore.Vel.y += -(pCore.thrust - pCore.anti_gravity);
-		
-	}
+		pCore.Vel.y += thrust;
 	else
-	{
-		pCore.Vel.y += gravity;//  *dt;
-		
-	}
+	   pCore.Vel.y += gravity * pCore.anti_gravity;//  *dt;
+	
+	
+
 	if (isMoving)
 	{
-		pCore.Vel.x += pCore.dir.Translate(pCore.accelX);
+		pCore.Vel.x += pCore.dir.Translate(pCore.decayX);
 			
 	}
-	else
-	{
-		pCore.Vel.x *= pCore.decayX;
-	}
+	pCore.Vel.x *= pCore.decayX;
+	
 	// confine to either - or + maxSpeed
 	pCore.Vel.y = __min(pCore.maxSpeedY, pCore.Vel.y);
 	pCore.Vel.y = __max(-pCore.maxSpeedY, pCore.Vel.y);
@@ -39,10 +32,10 @@ void PlayerJump::Update(float dt)
 }
 void PlayerJump::OnCtrlJumpPress()
 {
+	 
+	thrust -=  pCore.anti_gravity;
+	isThrusting = thrust > -pCore.thrust;
 	
-	pCore.thrust -= 0.45f;
-	if (pCore.thrust < 0.0f)
-		pCore.thrust = 0.0f;
 }
 void PlayerJump::OnCtrlDirRelease()
 {
@@ -56,6 +49,7 @@ void PlayerJump::OnCtrlDirChange(TDirection& d)
 }
 void PlayerJump::OnCtrlJumpRelease()
 {
+	thrust = -1000.0f;
 	isThrusting = false;
 }
 
@@ -100,7 +94,7 @@ void PlayerJump::OnCollision(const RectF& rect, const RectF& FRect)
 				// top
 				pCore.Vel.y = 2.0f;
 				pCore.Pos.y += py;
-				
+				thrust = -1000.0f;
 
 			}
 			else
@@ -150,7 +144,7 @@ void PlayerJump::OnCollision(const RectF& rect, const RectF& FRect)
 				pCore.Vel.y = 0.0f;
 				pCore.Pos.y += py;
 				pCore.Vel.y = 2.0f;
-				
+				thrust = -1000.0f;
 				isThrusting = false;
 
 

@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "EnemyContainer.h"
 #include "StaticAnimationContainer.h"
+#include "Direct3D10.h"
 
 extern PlayerControl controler;
 
@@ -22,12 +23,14 @@ class Game
 	// classes are private by default
 	GrafixD2 gfx;
 	D2D &d2d;
+	Direct3D10& d3d;
 	Texture mapSprite;
 	float m_runTime = 0.0f;
 	ID2D1Bitmap *pMapBitmap = nullptr;
 	
 	Camera camera;
 	Viewport viewport;
+	float2 viewPortPos;
 	TileMap* pMap = NULL;
 	BOOL running = FALSE;
 	Player* pPlayer = nullptr;
@@ -35,7 +38,8 @@ class Game
 	EnemyContainer Enemies;
 	StaticAnimationContainer StaticAnimate;
 public:
-	Game(D2D &d2d, UINT Width, UINT Height);
+
+	Game(D2D &d2d, Direct3D10& d3d, UINT Width, UINT Height);
 	~Game();
 	void OnLostDevice();
 	void OnResetDevice();
@@ -43,7 +47,12 @@ public:
 	void initStaticVars();
 	void loadMap(GameLevelData& data, float2 startPt);
 	void CreatePlayer();
-	void Resize(float w, float h) { camera.Resize(w, h); }
+	void Resize(float w, float h) 
+	{
+		float newW = w - viewPortPos.x;
+		float newH = h - viewPortPos.y;
+		camera.Resize(newW,newH);
+	}
 	void renderText();
 	void createEnemies();
 	BOOL OnUpdate(float dt);

@@ -3,7 +3,7 @@
 
 #include "UtilsD2.h"
 
-static const float gravity = 4.01f;
+static const float gravity = 9.01f;
 
 class ObjectCore
 {
@@ -84,6 +84,9 @@ public:
 	float decayY;
 	float maxSpeedX;
 	float maxSpeedY;
+	enum enemyType Type;
+	bool doUnsupported = true;
+	bool active = true;
 	class ObjectState* state = NULL;
 
 };

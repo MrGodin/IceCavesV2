@@ -25,9 +25,12 @@ public:
 	virtual float  GetRadius() {
 		return 0.0f;
 	};
+	virtual TDirection GetDirection() { TDirection d; d.SetInvalid(); return d; }
+	virtual TDirection GetOppositeDirection() { TDirection d; d.SetInvalid(); return d; }
 	virtual float  GetMass() { return 0.0f; };
 	virtual float2  GetCenter() { return float2(0, 0); }
 	virtual void   Rebound(const float2 normal) {};
+	virtual bool Active() { return true; }
 	virtual class ObjectState* GetState() {	return 0; };
 	
 

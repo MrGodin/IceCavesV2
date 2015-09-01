@@ -10,6 +10,7 @@ IceCaves::~IceCaves()
 {
 	SAFE_DELETE(d2d);
 	SAFE_DELETE(game);
+	SAFE_DELETE(pD3D);
 	CoUninitialize();
 }
 
@@ -118,10 +119,18 @@ HRESULT IceCaves::Initialize(UINT ScreenW, UINT ScreenH)
 	// Initialize Game
 	if (SUCCEEDED(hr))
 	{
-		game = new Game(*d2d, windowSize.x, windowSize.y);
+		pD3D = new Direct3D10(m_hwnd, windowSize.x, windowSize.y);
+		hr = pD3D ? S_OK : E_FAIL;
+	}
+	if (SUCCEEDED(hr))
+	{
+		UINT w = windowSize.x;// -(2 * (64 * 3));
+		UINT h = windowSize.y;// -(2 * (64 * 3));
+
+		game = new Game(*d2d, *pD3D,w,h);
 		hr = game ? S_OK : E_FAIL;
 	}
-
+	
 	return hr;
 }
 

@@ -97,8 +97,9 @@ void MapTile::Drawable::Translate(const float2& pos)
 }
 void MapTile::Drawable::Rasterize(GrafixD2& gfx)
 {
-	matWorld = matRot * matScale * matTrans;
 	
+	
+	matTrans = matViewPort* matTrans;
 	
 	gfx.DrawSprite(matTrans,
 		D2D1::RectF(parent.pos.x, parent.pos.y, parent.pos.x + parent.width, parent.pos.y + parent.height),

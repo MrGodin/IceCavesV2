@@ -22,6 +22,8 @@ public:
 	~Direct3D10();
 
 	IDXGISwapChain *GetSwapChain()const;
+	HRESULT BeginScene();
+	HRESULT EndScene();
 private:
 	IDXGISwapChain *psc;
 	ID3D10Device1 *pDevice;
@@ -29,7 +31,8 @@ private:
 	IDXGIDevice *pDxgiDevice;
 	IDXGIAdapter *pAdapter;
 	IDXGIFactory *pDxgiFactory;
-
+	D3D10_VIEWPORT viewport;
+	ID3D10RenderTargetView* m_renderTargetView;
 	// Just in case device is lost I suppose
 	DXGI_SWAP_CHAIN_DESC sd;
 };

@@ -43,7 +43,7 @@ HRESULT D2D::CreateDeviceResources()
 			rc.right - rc.left,
 			rc.bottom - rc.top
 			);
-
+		
 		// Create a Direct2D render target.
 		hr = m_pDirect2dFactory->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),

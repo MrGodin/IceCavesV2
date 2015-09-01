@@ -3,21 +3,22 @@
 #include "PlayerJump.h"
 #include "PlayerMove.h"
 
-Player::Player(float2 pos, float width, float height, ID2D1Bitmap *bmp, D2D1_RECT_F cliprect)
+Player::Player(PlayerDesc& desc)
 :
-Sprite(pos,width,height,bmp,cliprect)
+Sprite(desc.sprite),
+core(desc.core)
 {
-	core.Pos = pos;
+	
 	core.Vel.x = 0.0f;
 	core.accelX = 2.0f;
 	core.maxSpeedX = 226.0f;
 	core.maxSpeedY = 326.0f;
 	core.dir = TDirection::Right();
-	core.traction = 0.988f;
-	core.thrust = 12.0f;
-	core.anti_gravity = 0.998f;
+	core.traction = 0.978f;
+	core.thrust = gravity * 4;
+	core.anti_gravity = 0.918f;
 	core.mass = 2.0f;
-	core.decayX = 0.989f;
+	core.decayX = 0.999f;
 	core.angle = 0.0f;
 	core.state = new PlayerMove(core);
 }
@@ -34,7 +35,10 @@ Player::~Player()
 void Player::Update(float dt)
 {
 	core.state->Update(dt);
-	pos = core.Pos;
+	animation.SetPos(core.Pos);
+	animation.Update(dt);
+	core.dir.IsLeft() ? SetImageIndex(1) : SetImageIndex(0);
+	//pos = core.Pos;
 }
 D2D_RECT_F Player::GetDrawSize() 
 { 
@@ -75,6 +79,16 @@ float2  Player::GetCenter()
 {
 	return float2(GetAABB().left + (width * 0.5f), GetAABB().top + (height* 0.5f));
 };
+TDirection Player::GetDirection()
+{
+	return core.dir;
+}
+TDirection Player::GetOppositeDirection()
+{
+	TDirection d = core.dir;
+	d.Reverse();
+	return d;
+}
 void   Player::Rebound(const float2 normal)
 {
 	core.Vel -= normal *(core.Vel * normal) * 2.0f;
